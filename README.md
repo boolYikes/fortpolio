@@ -1,3 +1,9 @@
 # fortpolio
 The indomitable Fort Polio
-bortfoliofortboliorortdoriodirtnoriojorttoriofactorioaaaaaaaaaaaaaaaaaaaaaa
+bortfolio
+fortbolio
+rortdorio
+dirtnorio
+jorttorio
+factorio?
+aaaaaaaaaaaaaaaaaaaaaa
