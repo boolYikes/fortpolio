@@ -21,15 +21,16 @@ const Section = ({ children, bgImage }) => {
     const [isVisible, setIsVisible] = useState(false)
 
     useEffect(() => {
+        let thing = ref.current
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
                     setIsVisible(true)
-                    observer.unobserve(ref.current)
+                    observer.unobserve(thing)
                 }
             },
             {
-                threshold: 0.1,
+                threshold: 0.5,
             }
         )
 
@@ -38,8 +39,8 @@ const Section = ({ children, bgImage }) => {
         }
 
         return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current)
+            if (thing) {
+                observer.unobserve(thing)
             }
         }
     }, [])
