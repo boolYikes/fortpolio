@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Box, Toolbar, Typography } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import CssBaseline from '@mui/material/CssBaseline'
 import Section from './components/Section'
 import Navbar from './components/Navbar'
 
 const App = () => {
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm')) // adjustable : check what value sm stands for
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline /> {/* Resets css for consistency */}
@@ -16,7 +18,7 @@ const App = () => {
         <Toolbar />
         <Section bgImage='/src/assets/images/section_bg.webp'>
           <Typography 
-            variant='h2' 
+            variant={isMobile ? 'h4' : 'h2'}
             component='h1' 
             align='center' 
             color='#121212'
