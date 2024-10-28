@@ -27,7 +27,7 @@ const App = () => {
               fontWeight: 'bold',
             }}
           >
-            Dee Henry Seon
+            I want it transparent and I want it now.
           </Typography>
         </Section>
 
