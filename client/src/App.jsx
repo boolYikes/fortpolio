@@ -5,7 +5,9 @@ import theme from './theme'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import CssBaseline from '@mui/material/CssBaseline'
 import Section from './components/Section'
+import HeaderSection from './components/HeaderSection'
 import Navbar from './components/Navbar'
+import headerbg from '/src/assets/images/section_bg.webp'
 
 const App = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')) // adjustable : check what value sm stands for
@@ -16,18 +18,19 @@ const App = () => {
         <Navbar />
         {/* offset to prevent hidden content : this is ugly. gotta integrate it to the bg*/}
         <Toolbar />
-        <Section bgImage='/src/assets/images/section_bg.webp'>
+        <Section bgimage="/src/assets/images/section_bg.webp">
           <Typography 
             variant={isMobile ? 'h4' : 'h2'}
             component='h1' 
-            align='center' 
-            color='#121212'
+            align='left' 
+            color='rgb(102, 218, 239)'
             sx={{
-              WebkitTextStroke: '1px #8cd6a7',
-              fontWeight: 'bold',
+            WebkitTextStroke: '1px rgb(0, 0, 0)',
+            fontWeight: 'bold',
+            fontSize: '5em'
             }}
           >
-            I want it transparent and I want it now.
+            I WANT IT<br/> TRANSPARENT<br/> AND<br/> I WANT IT<br/> NOW.<br/>
           </Typography>
         </Section>
 

@@ -2,12 +2,12 @@ import React, { useRef, useEffect, useState } from 'react'
 import { Box, Typography, Container } from '@mui/material'
 import { styled } from '@mui/system'
 
-const StyledSection = styled(Box)(({ theme, bgImage }) => ({
+const StyledSection = styled(Box)(({ theme, bgimage }) => ({
     minHeight: '100vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: bgImage ? `url(${bgImage})` : 'none',
+    backgroundImage: bgimage ? `url(${bgimage})` : 'none',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     padding: theme.spacing(4),
@@ -16,7 +16,7 @@ const StyledSection = styled(Box)(({ theme, bgImage }) => ({
     transition: 'opacity 0.6s ease-out, transform 0.6s ease-out',
 }))
 
-const Section = ({ children, bgImage }) => {
+const Section = ({ children, bgimage }) => {
     const ref = useRef()
     const [isVisible, setIsVisible] = useState(false)
 
@@ -48,7 +48,7 @@ const Section = ({ children, bgImage }) => {
     return (
         <StyledSection 
             ref={ref}
-            bgImage={bgImage}
+            bgimage={bgimage}
             sx={{
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? 'translateY(0)' : 'translateY(50px)',
