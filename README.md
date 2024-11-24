@@ -2,12 +2,16 @@
 - [x] Prototyping(Figma)
 - [x] Rough mock up
 - [x] Branch out from now on, divide & conquer
-- [ ] Backend & DB << 
+- [ ] Carousel API's style is being overwritten by MUI. Find a way around. Try Slick again with the index.css <<
+- [ ] Contact, Footer section
+- [ ] Components touch-up
+- [ ] Backend & DB
 - [ ] Insert Data & Test
 - [ ] Refactor components
 - [ ] Convert to TS
 - [ ] Dockerize
 - [ ] CI & CD
+- [ ] Deployment
 
 # WIP
 How many times have i taken down the website?😁
