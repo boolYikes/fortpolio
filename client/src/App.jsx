@@ -6,15 +6,14 @@ import Slider from "./components/Body/Slider"
 import IconSection from "./components/Body/IconSection"
 
 function App() {
-
   return (
     <>
-      <NavBar/>
-      <Header/>
-      <Stacks/>
-      <Intermission/>
-      <Slider/>
-      <IconSection/>
+      <NavBar />
+      <Header />
+      <Stacks />
+      <Intermission />
+      <Slider />
+      <IconSection />
     </>
   )
 }

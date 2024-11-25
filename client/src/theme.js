@@ -1,18 +1,18 @@
 import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme({
-    typography: {
-        fontFamily: 'Ubuntu, Arial, sans-serif',
-    },
-    palette: {
-        mode: 'light',
-        primary: {
-            main: '#a962c9',
+        typography: {
+            fontFamily: 'Ubuntu, Arial, sans-serif',
         },
-        secondary: {
-            main: '#8cd6a7',
+        palette: {
+            mode: 'dark',
+            primary: {
+                main: 'rgb(61, 164, 128)',
+            },
+            secondary: {
+                main: 'rgb(235, 113, 142)',
+            },
         },
-    },
-})
+    })
 
-export default theme;
+export default theme

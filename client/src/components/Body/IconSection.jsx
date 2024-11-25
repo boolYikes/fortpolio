@@ -22,7 +22,7 @@ const IconSection = () => {
                 p: 4,
             }}
         >
-            <Grid2 container spacing={4} sx={{ width: '80%' }}>
+            <Grid2 container spacing={4} sx={{ width: '80%', justifyContent: 'space-between' }}>
                 {icons.map((item ,index) => (
                     <Grid2
                         key={index}
