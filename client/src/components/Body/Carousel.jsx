@@ -1,3 +1,5 @@
+import React from 'react'
+import Slider from 'react-slick'
 import { Box, Typography, Button } from '@mui/material'
 
 // placeholders
@@ -7,7 +9,17 @@ const projects = [
     { image: '../src/assets/prog.jpg', description: 'Project 1 desc.', link: '#' },
 ]
 
-const Slider = () => {
+const Carousel = () => {
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 6000,
+    }
+
     return (
         <Box
             sx={{
@@ -20,11 +32,11 @@ const Slider = () => {
             }}
         >
             <Box sx={{ width: '80%' }}>
-                <Typography variant='v4' textAlign='center' gutterBottom>
+                <Typography variant='h4' textAlign='center' gutterBottom>
                     Recent ones
                 </Typography>
                 {/* this will be replaced with a carousel component */}
-                <div>
+                <Slider {...settings}>
                     {projects.map((project, index) => (
                         <Box
                             key={index}
@@ -67,7 +79,7 @@ const Slider = () => {
                                 <Button
                                     variant='contained'
                                     color='primary'
-                                    sx={{ mt: 2}}
+                                    sx={{ mt: 2 }}
                                     href={project.link}
                                 >
                                     Get a closer look
@@ -75,10 +87,10 @@ const Slider = () => {
                             </Box>
                         </Box>
                     ))}
-                </div>
+                </Slider>
             </Box>
         </Box>
     )
 }
 
-export default Slider
+export default Carousel
