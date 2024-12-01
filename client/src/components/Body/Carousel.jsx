@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 import Slider from 'react-slick'
 import { Box, Typography, Button } from '@mui/material'
 
@@ -21,75 +22,83 @@ const Carousel = () => {
     }
 
     return (
-        <Box
-            sx={{
-                minHeight: '80vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                bgcolor: 'background.default',
-                p: 4,
-            }}
+        <motion.div
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, ease: "easeInOut" }}
+                    viewport={{ once: true, amount: 0.5 }}
+                    
         >
-            <Box sx={{ width: '80%' }}>
-                <Typography variant='h4' textAlign='center' gutterBottom>
-                    Recent ones
-                </Typography>
-                {/* this will be replaced with a carousel component */}
-                <Slider {...settings}>
-                    {projects.map((project, index) => (
-                        <Box
-                            key={index}
-                            sx={{
-                                position: 'relative',
-                                '&:hover img': { filter: 'blur(5px)' },
-                            }}
-                        >
+            <Box
+                sx={{
+                    minHeight: '80vh',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    bgcolor: 'background.default',
+                    p: 4,
+                }}
+            >
+                <Box sx={{ width: '80%' }}>
+                    <Typography variant='h4' textAlign='center' gutterBottom>
+                        Recent ones
+                    </Typography>
+                    {/* this will be replaced with a carousel component */}
+                    <Slider {...settings}>
+                        {projects.map((project, index) => (
                             <Box
-                                component='img'
-                                src={project.image}
-                                alt={`Project ${index + 1}`}
+                                key={index}
                                 sx={{
-                                    width: '100%',
-                                    height: 'auto',
-                                    borderRadius: 2,
-                                    boxShadow: 3,
-                                    transition: 'filter 0.3s ease',
-                                }}
-                            />
-                            <Box
-                                sx={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    width: '100%',
-                                    height: '100%',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    color: 'common.white',
-                                    textAlign: 'center',
-                                    bgcolor: 'rgba(0,0,0,0.6)',
-                                    opacity: 0,
-                                    '&:hover': { opacity: 1 },
-                                    transition: 'opacity 0.3s ease',
+                                    position: 'relative',
+                                    '&:hover img': { filter: 'blur(5px)' },
                                 }}
                             >
-                                <Typography variant='h6'>{project.description}</Typography>
-                                <Button
-                                    variant='contained'
-                                    color='primary'
-                                    sx={{ mt: 2 }}
-                                    href={project.link}
+                                <Box
+                                    component='img'
+                                    src={project.image}
+                                    alt={`Project ${index + 1}`}
+                                    sx={{
+                                        width: '100%',
+                                        height: 'auto',
+                                        borderRadius: 2,
+                                        boxShadow: 3,
+                                        transition: 'filter 0.3s ease',
+                                    }}
+                                />
+                                <Box
+                                    sx={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        color: 'common.white',
+                                        textAlign: 'center',
+                                        bgcolor: 'rgba(0,0,0,0.6)',
+                                        opacity: 0,
+                                        '&:hover': { opacity: 1 },
+                                        transition: 'opacity 0.3s ease',
+                                    }}
                                 >
-                                    Get a closer look
-                                </Button>
+                                    <Typography variant='h6'>{project.description}</Typography>
+                                    <Button
+                                        variant='contained'
+                                        color='primary'
+                                        sx={{ mt: 2 }}
+                                        href={project.link}
+                                    >
+                                        Get a closer look
+                                    </Button>
+                                </Box>
                             </Box>
-                        </Box>
-                    ))}
-                </Slider>
+                        ))}
+                    </Slider>
+                </Box>
             </Box>
-        </Box>
+        </motion.div>
     )
 }
 
