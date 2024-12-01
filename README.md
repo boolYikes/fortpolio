@@ -2,9 +2,9 @@
 - [x] Prototyping(Figma)
 - [x] Rough mock up
 - [x] Branch out from now on, divide & conquer
-- [ ] Carousel API's style is being overwritten by MUI. Find a way around. Try Slick again with the index.css <<
-- [ ] Contact, Footer section
-- [ ] Components touch-up
+- [x] Carousel API's style is being overwritten by MUI. Find a way around. Try Slick again with the index.css
+- [x] Contact, Footer section
+- [ ] Components touch-up <<
 - [ ] Backend & DB
 - [ ] Insert Data & Test
 - [ ] Refactor components
