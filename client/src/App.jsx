@@ -6,18 +6,22 @@ import Carousel from "./components/Body/Carousel"
 import IconSection from "./components/Body/IconSection"
 import Contact from "./components/Body/Contact"
 import Footer from "./components/Footer"
+// import Test from "./components/Test"
 
 function App() {
+  
   return (
     <>
-      <NavBar />
+      {/** Delete Test on prod */}
+      {/* <Test /> */}
+      <NavBar /> 
       <Header />
       <Stacks />
       <Intermission />
       <Carousel />
       <IconSection />
-      <Contact />
-      <Footer />
+      <Contact /> 
+      <Footer /> 
     </>
   )
 }

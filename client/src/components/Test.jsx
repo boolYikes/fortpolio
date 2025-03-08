@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Typography, Grid2 } from "@mui/material";
 import axios from 'axios';
 
-const Stacks = () => {
+const Test = () => {
     const [stacks, setStacks] = useState([]);
 
     useEffect(() => {
@@ -24,4 +24,4 @@ const Stacks = () => {
     )
 }
 
-export default Stacks
+export default Test
