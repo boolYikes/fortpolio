@@ -17,18 +17,19 @@ const conn_info = {
 const sequelize = new Sequelize(options=conn_info)
 
 // Middleware
+// TODO: Error sift
+// uh ...
 app.use(cors())
-// app.use(express.json());
+app.use(express.json());
 
-// Test Route
 app.get('/', (req, res) => {
     res.send('Backend is running...')
     console.log("landed")
 })
 
-// Query Route - Example: Fetch Tech Stacks
 app.get('/api/test', async (req, res) => {
-    const test_res = await sequelize.query('SELECT * FROM public.test', { type: QueryTypes.SELECT })
+    // sequelize handles exceptions
+    const test_res = await sequelize.query('SELECT * FROM public.info', { type: QueryTypes.SELECT })
     res.json(test_res)
     console.log(`fetched ${test_res.length} rows`)
 })
