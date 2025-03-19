@@ -15,7 +15,6 @@ const App = () => {
   const [profile, setProfile] = useState({})
   
   useEffect(() => {
-    console.log("babooppppppoooo")
       profileService
         .getMaster()
         .then(info => 
