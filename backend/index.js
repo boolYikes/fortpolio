@@ -1,42 +1,26 @@
-// we'll refactor later ....😂
+// TODOs
+// ✅Models
+// ✅Error sift middleware
+// ✅Routers middleware
+// Test middleware
 
-require('dotenv').config()
 const express = require('express')
+require('dotenv').config()
+const sequelize = require("./config/database")
+const applyMiddlewares = require("./middlewares/commonMiddlewares")
+const applyErrorHandler = require("./middlewares/errorHandler")
+const infoRoutes = require("./routes/infoRoutes")
+
 const app = express()
-const cors = require('cors')
 
-const { Sequelize, QueryTypes } = require('sequelize')
-const conn_info = {
-    'host': process.env.DUCKDB_HOST,
-    'port': process.env.DUCKDB_PORT,
-    'username': process.env.DUCKDB_USER,
-    'password': process.env.DUCKDB_PASSWORD,
-    'database': process.env.DUCKDB_DATABASE,
-    'dialect': 'postgres'
-}
-const sequelize = new Sequelize(options=conn_info)
+applyMiddlewares(app)
+app.use('/api/info', infoRoutes)
+applyErrorHandler(app)
 
-// Middleware
-// TODO: Error sift
-// uh ...
-app.use(cors())
-app.use(express.json());
+const PORT = process.env.PORT || 5000
 
-app.get('/', (req, res) => {
-    res.send('Backend is running...')
-    console.log("landed")
-})
-
-app.get('/api/test', async (req, res) => {
-    // sequelize handles exceptions
-    const test_res = await sequelize.query('SELECT * FROM public.info', { type: QueryTypes.SELECT })
-    res.json(test_res)
-    console.log(`fetched ${test_res.length} rows`)
-})
-            
-const port = process.env.PORT || 5000
-
-// Start Server
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`)
+app.listen(PORT, async () => {
+    console.log(`Server running on port ${PORT}`)
+    // await sequelize.sync({ alter: true }) // model syncing to DB
+    await sequelize.sync()
 })

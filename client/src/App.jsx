@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Header from "./components/Header"
 import NavBar from "./components/NavBar"
 import Stacks from "./components/Body/Stacks"
@@ -7,14 +8,27 @@ import IconSection from "./components/Body/IconSection"
 import Contact from "./components/Body/Contact"
 import Footer from "./components/Footer"
 // import Test from "./components/Test"
+import profileService from "./services/info"
 
-function App() {
+const App = () => {
+
+  const [profile, setProfile] = useState({})
+  
+  useEffect(() => {
+    console.log("babooppppppoooo")
+      profileService
+        .getMaster()
+        .then(info => 
+            setProfile(info)
+        )
+        // .catch(err => console.error("Error: ", err))
+  }, [])
   
   return (
     <>
       {/** Delete Test on prod */}
       {/* <Test /> */}
-      <NavBar /> 
+      <NavBar profile={profile}/> 
       <Header />
       <Stacks />
       <Intermission />
