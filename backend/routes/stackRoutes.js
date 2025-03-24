@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/1', async (req, res, next) => {
     try {
-        const stack = await Stack.findOne()
+        const stack = await Stack.findAll()
         if(!stack) return res.status(404).json({ error: 'No record in Stack table.' })
         res.status(200).json(stack)
     } catch (error) {

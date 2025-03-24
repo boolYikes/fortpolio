@@ -9,27 +9,33 @@ import Contact from "./components/Body/Contact"
 import Footer from "./components/Footer"
 // import Test from "./components/Test"
 import profileService from "./services/info"
+import stackService from "./services/stack"
 
 const App = () => {
 
   const [profile, setProfile] = useState({})
+  const [stack, setStack] = useState([])
   
   useEffect(() => {
       profileService
         .getMaster()
         .then(info => 
-            setProfile(info)
+          setProfile(info)
         )
         // .catch(err => console.error("Error: ", err))
+      stackService
+        .getMaster()
+        .then(stack =>
+          setStack(stack)
+        )
   }, [])
-  
   return (
     <>
       {/** Delete Test on prod */}
       {/* <Test /> */}
       <NavBar profile={profile}/> 
       <Header />
-      <Stacks />
+      <Stacks techStacks={stack}/>
       <Intermission />
       <Carousel />
       <IconSection />
