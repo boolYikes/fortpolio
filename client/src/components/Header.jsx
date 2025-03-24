@@ -26,7 +26,7 @@ const Header = () => {
                         Assemble Nerd Warriors!
                     </Typography>
                     <Typography variant="body1">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce euismod.
+                        Let the problem-solving and innovation begin! 🛠️✨
                     </Typography>
                 </Box>
                 <Box
@@ -38,6 +38,18 @@ const Header = () => {
                         height: 'auto',
                         borderRadius: 2,
                         boxShadow: 3,
+                        maskImage: `
+                            linear-gradient(to top, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%),  
+                            linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%),  
+                            linear-gradient(to left, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%),  
+                            linear-gradient(to right, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)`,
+                        WebkitMaskImage: `
+                            linear-gradient(to top, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%),  
+                            linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%),  
+                            linear-gradient(to left, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%),  
+                            linear-gradient(to right, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)`,
+                        maskComposite: "intersect", // Ensures all fades blend together
+                        WebkitMaskComposite: "destination-in", 
                     }}
                 />
             </Box>
