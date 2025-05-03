@@ -1,4 +1,11 @@
-# TODOs
+![Build Status](./web/badges/build-status.svg)
+
+## Waaaab Aaaaaab
+
+## WIP
+How many times have i taken down the website?😁
+
+## TODOs
 - [x] Prototyping(Figma)
 - [x] Rough mock up
 - [x] Branch out from now on, divide & conquer
@@ -21,10 +28,8 @@
 - [ ] Certbot cronjob
 - [ ] Only one reverse proxy can exist(integrate the Jukebox LB)
 
-# WIP
-How many times have i taken down the website?😁
 
-# Log
+## Logs
 - Images in a MUI Box won't expand to its parents width even though they are explicit.
     - can only assume that the size of the image must be box-content-driven
     - IOW, the bg image is used as the bg of the texts, not the box element.

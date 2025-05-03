@@ -2,7 +2,8 @@ pipeline {
   agent any
 
   environment {
-    COMPOSE_PROJECT_NAME = "webstack"
+    COMPOSE_PROJECT_NAME = "fortpolio"
+    BADGE_PATH = "web/badges/build-status.svg"
   }
 
   stages {
@@ -14,15 +15,18 @@ pipeline {
 
     stage('Install Dependencies') {
       steps {
-        dir('web') {
-          sh 'npm install'
+        dir('web/client') {
+          sh 'npm ci'
+        }
+        dir('web/backend') {
+          sh 'npm ci'
         }
       }
     }
 
     stage('Run Tests') {
       steps {
-        dir('web') {
+        dir('web/backend') {
           sh 'npm test'
         }
       }
@@ -55,6 +59,38 @@ pipeline {
     stage('Clean Up') {
       steps {
         sh 'docker image prune -f'
+      }
+    }
+  }
+
+  post {
+    success {
+      steps {
+        sh '''
+          mkdir -p web/badges
+          badge build passed :brightgreen > ${BADGE_PATH}
+        '''
+      }
+    }
+
+    failure {
+      steps {
+        sh '''
+          mkdir -p web/badges
+          badge build failed :critical > ${BADGE_PATH}
+        '''
+      }
+    }
+
+    always {
+      steps {
+        sh '''
+          git config user.name "jenkins"
+          git config user.email "jenmcclair@hotmail.com"
+          git add ${BADGE_PATH}
+          git commit -m "Update build status badge" || echo "No changes to commit"
+          git push origin main
+        '''
       }
     }
   }
