@@ -1,6 +1,10 @@
 pipeline {
   agent any
 
+  tools {
+    nodejs 'nodejs'
+  }
+
   environment {
     COMPOSE_PROJECT_NAME = "fortpolio"
     BADGE_PATH = "web/badges/build-status.svg"
@@ -9,7 +13,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git 'https://github.com/boolYikes/fortpolio.git'
+        git branch: 'main', url: 'https://github.com/boolYikes/fortpolio.git'
       }
     }
 
