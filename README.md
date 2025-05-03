@@ -5,13 +5,18 @@
 - [x] Carousel API's style is being overwritten by MUI. Find a way around. Try Slick again with the index.css
 - [x] Contact, Footer section
 - [ ] Components touch-up <<
-- [ ] Backend & DB
-- [ ] Insert Data & Test
+- [x] Backend & DB
+- [ ] Tests
 - [ ] Refactor components
 - [ ] Convert to TS
-- [ ] Dockerize
-- [ ] CI & CD
-- [ ] Deployment
+- [x] Dockerize
+- [x] CI & CD
+    - Don't use bind mounts: messy permissions
+    - Inside container,
+    - `chmod 700 /var/jenkins_home/.ssh`
+    - `ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> /var/jenkins_home/.ssh/known_hosts` or scm will not work 
+    - `chmod 644 /var/jenkins_home/.ssh/known_hosts`
+- [x] Deployment
 
 # WIP
 How many times have i taken down the website?😁

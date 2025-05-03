@@ -25,7 +25,6 @@ const NavBar = ({ profile }) => {
                 </IconButton>
                 <Typography variant="h6" sx={{ flexGrow: 1 }}>
                     {profile["preferred_name"] + " " + profile["middle_name"] + " " + profile["last_name"]}
-                    {/* fukin hell man */}
                 </Typography>
                 <div>
                     <IconButton
