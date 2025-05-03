@@ -2,11 +2,17 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+# Backend install
+COPY backend ./backend
+WORKDIR /app/backend
 RUN npm install
 
-COPY . .
-
+# Client install + build
+WORKDIR /app
+COPY client ./client
+WORKDIR /app/client
+RUN npm install
 RUN npm run build
 
+WORKDIR /app/backend
 CMD ["npm", "run", "start"]

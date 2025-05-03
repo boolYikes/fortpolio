@@ -1,0 +1,54 @@
+services:
+  webapp:
+    build: ./web
+    ports:
+      - "3005:3000"
+    environment:
+      - NODE_ENV=production
+      - ${FORT_BACKEND_PORT}=${FORT_BACKEND_PORT}
+      - ${FORT_PG_HOST}=${FORT_PG_HOST}
+      - ${FORT_PG_PORT}=${FORT_PG_PORT}
+      - ${FORT_PG_USER}=${FORT_PG_USER}
+      - ${FORT_PG_PASSWORD}=${FORT_PG_PASSWORD}
+      - ${FORT_PG_DATABASE}=${FORT_PG_DATABASE}
+    depends_on:
+      - db
+    networks:
+      - fortpolio
+
+  db:
+    image: postgres:13
+    ports:
+      - "5433:5432"
+    user:
+      - "1000:1000"
+    environment:
+      POSTGRES_DB: ${FORT_PG_DATABASE}
+      POSTGRES_USER: ${FORT_PG_USER}
+      POSTGRES_PASSWORD: ${FORT_PG_PASSWORD}
+    volumes:
+      - fortpolio:/var/lib/postgresql/data
+    networks:
+      - fortpolio
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - /lab/dee/repos_side/fortpolio/nginx/webapp.conf:/etc/nginx/conf.d/default.conf
+      - /lab/dee/repos_side/fortpolio/certbot/conf:/etc/letsencrypt:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    expose:
+      - "80"
+      - "443"
+    depends_on:
+      - webapp
+    networks:
+      - fortpolio
+
+volumes:
+  fortpolio:
+
+networks:
+  fortpolio:

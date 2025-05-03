@@ -14,12 +14,15 @@ const stackRoutes = require("./routes/stackRoutes")
 
 const app = express()
 
+const path = require('path')
+app.use('/fortpolio', express.static(path.join(__dirname, '../client/dist')))
+
 applyMiddlewares(app)
 app.use('/api/info', infoRoutes)
 app.use('/api/stack', stackRoutes)
 applyErrorHandler(app)
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.FORT_BACKEND_PORT || 5000
 
 app.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`)

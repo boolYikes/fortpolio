@@ -2,11 +2,11 @@ const { Sequelize } = require("sequelize")
 require("dotenv").config()
 
 const conn_info = {
-    'host': process.env.DUCKDB_HOST,
-    'port': process.env.DUCKDB_PORT,
-    'username': process.env.DUCKDB_USER,
-    'password': process.env.DUCKDB_PASSWORD,
-    'database': process.env.DUCKDB_DATABASE,
+    'host': process.env.FORT_PG_HOST,
+    'port': process.env.FORT_PG_PORT,
+    'username': process.env.FORT_PG_USER,
+    'password': process.env.FORT_PG_PASSWORD,
+    'database': process.env.FORT_PG_DATABASE,
     'dialect': 'postgres'
 }
 
