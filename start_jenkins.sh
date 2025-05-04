@@ -19,5 +19,6 @@ docker run -d --name jenkins \
     -p 8081:8080 -p 50000:50000 \
     -v "$VOL_NAME":/var/jenkins_home \
     -v /var/run/docker.sock:/var/run/docker.sock \
+    --network deeverse_proxy \
     --restart=on-failure \
     jenkins/jenkins:lts-jdk17

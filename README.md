@@ -25,8 +25,7 @@ How many times have i taken down the website?😁
     - `ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> /var/jenkins_home/.ssh/known_hosts` or scm will not work 
     - `chmod 644 /var/jenkins_home/.ssh/known_hosts`
 - [x] Deployment
-- [ ] Certbot cronjob
-- [ ] Only one reverse proxy can exist(integrate the Jukebox LB)
+- [x] Only one reverse proxy can exist(detach LB)
 
 
 ## Logs

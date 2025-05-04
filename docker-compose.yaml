@@ -1,5 +1,5 @@
 services:
-  webapp:
+  fortpolio:
     build: ./web
     ports:
       - "3005:3000"
@@ -14,7 +14,8 @@ services:
     depends_on:
       - db
     networks:
-      - fortpolio
+      - default
+      - deeverse_proxy
 
   db:
     image: postgres:13
@@ -29,26 +30,12 @@ services:
     volumes:
       - fortpolio:/var/lib/postgresql/data
     networks:
-      - fortpolio
-
-  nginx:
-    image: nginx:latest
-    volumes:
-      - /lab/dee/repos_side/fortpolio/nginx/webapp.conf:/etc/nginx/conf.d/default.conf
-      - /lab/dee/repos_side/fortpolio/certbot/conf:/etc/letsencrypt:ro
-    ports:
-      - "80:80"
-      - "443:443"
-    expose:
-      - "80"
-      - "443"
-    depends_on:
-      - webapp
-    networks:
-      - fortpolio
+      - default
+      - deeverse_proxy
 
 volumes:
   fortpolio:
 
 networks:
-  fortpolio:
+  deeverse_proxy:
+    external: true
