@@ -33,13 +33,4 @@ How many times have i taken down the website?😁
     - can only assume that the size of the image must be box-content-driven
     - IOW, the bg image is used as the bg of the texts, not the box element.
     - Read MUI docs for importing images
-- Running certbot with http config and then adding https is a common sense...
-```bash
-# this was already done from the Jukebox stack. It was not due for renewal(copy pasted certs)
-docker run --rm -it \
-    -v ./certbot/conf:/etc/letsencrypt \
-    -v ./certbot/www:/var/www/certbot \
-    -v ./certbot/logs:/var/log/letsencrypt \
-    certbot/certbot \
-    certonly --webroot -w /var/www/certbot -d dees.kr -d www.dees.kr --non-interactive --agree-tos --email tunacome@gmail.com
-```
+- For Jenkins webhook, the payload url from the github-side should end with /. This was modified from the reverse proxy.
