@@ -2,6 +2,7 @@
 
 VOL_NAME="jenkins-home"
 CONT_NAME="jenkins"
+VOL_TEMP="jenkins-temp"
 
 docker volume inspect "$VOL_NAME" > /dev/null 2>&1 \
     && echo "Volume '$VOL_NAME' already exists." \
@@ -19,7 +20,11 @@ docker run -d --name jenkins \
     -p 8081:8080 -p 50000:50000 \
     -v "$VOL_NAME":/var/jenkins_home \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    # -e JENKINS_PREFIX=/jenkins \
+    -v "$VOL_TEMP":/var/run/jenkins \
+    -e JENKINS_OPTS="--prefix=/jenkins" \
+    -e JENKINS_PREFIX=/jenkins \
     --network deeverse_proxy \
     --restart=on-failure \
     jenkins/jenkins:lts-jdk17
+
+docker exec -it -u root jenkins usermod -aG jenkins www-data
