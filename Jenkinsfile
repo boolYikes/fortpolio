@@ -89,8 +89,10 @@ pipeline {
 
   post {
     always {
-      sshagent(['all-purpose']) {
+      script {
         def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :red'
+      }
+      sshagent(['all-purpose']) {
 
         sh "mkdir -p web/badges"
         sh "badge ${badgeText} > ${BADGE_PATH}"
