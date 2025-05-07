@@ -98,6 +98,9 @@ pipeline {
           sh "git config user.name 'jenkins'"
           sh "git config user.email 'jenmcclair@hotmail.com'"
           sh """
+            git checkout main
+            git fetch origin
+            git rebase origin/main
             git add ${BADGE_PATH}
             git commit -m "Update build status badge [ci skip]" || echo "No changes to commit"
             git push origin main
