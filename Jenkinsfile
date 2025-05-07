@@ -76,39 +76,27 @@ pipeline {
 
   post {
     success {
-      stage('Success') {
-        steps {
-          sh '''
-            mkdir -p web/badges
-            badge build passed :brightgreen > ${BADGE_PATH}
-          '''
-        }
-      }
+      sh '''
+        mkdir -p web/badges
+        badge build passed :brightgreen > ${BADGE_PATH}
+      '''
     }
 
     failure {
-      stage('failure') {
-        steps {
-          sh '''
-            mkdir -p web/badges
-            badge build failed :critical > ${BADGE_PATH}
-          '''
-        }
-      }
+      sh '''
+        mkdir -p web/badges
+        badge build failed :critical > ${BADGE_PATH}
+      '''
     }
 
     always {
-      stage('always') {
-        steps {
-          sh '''
-            git config user.name "jenkins"
-            git config user.email "jenmcclair@hotmail.com"
-            git add ${BADGE_PATH}
-            git commit -m "Update build status badge" || echo "No changes to commit"
-            git push origin main
+      sh '''
+        git config user.name "jenkins"
+        git config user.email "jenmcclair@hotmail.com"
+        git add ${BADGE_PATH}
+        git commit -m "Update build status badge" || echo "No changes to commit"
+        git push origin main
           '''
-        }
-      }
     }
   }
 }
