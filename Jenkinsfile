@@ -11,9 +11,24 @@ pipeline {
   }
 
   stages {
+    stage('00. Check skip') {
+      steps {
+        script {
+          def skip = sh(script: "git log -1 --pretty=%B | grep -q '\\[ci skip\\]'", returnStatus: true) == 0
+          if (skip) {
+            echo "[ci skip] instruction found: Skipping build."
+            currentBuild.result = 'SUCCESS'
+            error("Build skipped: [ci skip]")
+          }
+        }
+      }
+    }
+
     stage('01. Checkout') {
       steps {
-        git branch: 'main', url: 'https://github.com/boolYikes/fortpolio.git'
+          sshagent(['all-purpose']) {
+            git branch: 'main', url: 'git@github.com:boolYikes/fortpolio.git'
+          }
       }
     }
 
@@ -93,13 +108,17 @@ pipeline {
       sh '''
         mkdir -p web/badges
         badge ${badgeText} > ${BADGE_PATH}
-
         git config user.name "jenkins"
         git config user.email "jenmcclair@hotmail.com"
-        git add ${BADGE_PATH}
-        git commit -m "Update build status badge" || echo "No changes to commit"
-        git push origin main
-          '''
+      '''
+
+      sshagent(['all-purpose']) {
+        sh '''
+          git add ${BADGE_PATH}
+          git commit -m "Update build status badge [ci skip]" || echo "No changes to commit"
+          git push origin main
+        '''
+      }
     }
   }
 }
