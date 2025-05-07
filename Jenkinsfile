@@ -11,86 +11,89 @@ pipeline {
   }
 
   stages {
-    stage('Checkout') {
+    stage('01. Checkout') {
       steps {
         git branch: 'main', url: 'https://github.com/boolYikes/fortpolio.git'
       }
     }
 
-    stage('Debug Git') {
+    stage('02. Debug Git') {
       steps {
         sh 'git log -1'
         sh 'git diff-tree --no-commit-id --name-only -r $GIT_COMMIT'
       }
     }
 
-    stage('Install Dependencies') {
+    stage('03. Prep Badge CLI') {
       steps {
-        dir('web/client') {
-          sh 'npm ci'
-        }
-        dir('web/backend') {
-          sh 'npm ci'
-        }
+        sh 'npm install -g badge'
       }
     }
 
-    stage('Run Tests') {
+    stage('04. Install Dependencies') {
       steps {
-        dir('web/backend') {
-          sh 'npm test'
-        }
+        echo 'Simulate step 04'
+        // dir('web/client') {
+        //   sh 'npm ci'
+        // }
+        // dir('web/backend') {
+        //   sh 'npm ci'
+        // }
       }
     }
 
-    stage('Build and Deploy') {
+    stage('05. Run Tests') {
       steps {
-        withCredentials([
-          string(credentialsId: 'FORT_BACKEND_PORT', variable: 'FORT_BACKEND_PORT'),
-          string(credentialsId: 'FORT_PG_HOST', variable: 'FORT_PG_HOST'),
-          string(credentialsId: 'FORT_PG_PORT', variable: 'FORT_PG_PORT'),
-          string(credentialsId: 'FORT_PG_USER', variable: 'FORT_PG_USER'),
-          string(credentialsId: 'FORT_PG_PASSWORD', variable: 'FORT_PG_PASSWORD'),
-          string(credentialsId: 'FORT_PG_DATABASE', variable: 'FORT_PG_DATABASE'),
-        ]) {
-          sh '''
-            echo "FORT_BACKEND_PORT=$FORT_BACKEND_PORT" > .env
-            echo "FORT_PG_HOST=$FORT_PG_HOST" >> .env
-            echo "FORT_PG_PORT=$FORT_PG_PORT" >> .env
-            echo "FORT_PG_USER=$FORT_PG_USER" >> .env
-            echo "FORT_PG_PASSWORD=$FORT_PG_PASSWORD" >> .env
-            echo "FORT_PG_DATABASE=$FORT_PG_DATABASE" >> .env
-            docker compose down
-            docker compose up -d --build
-          '''
-        }
+        echo 'Simulate step 05'
+        // dir('web/backend') {
+        //   sh 'npm test'
+        // }
       }
     }
 
-    stage('Clean Up') {
+    stage('06. Build and Deploy') {
       steps {
-        sh 'docker image prune -f'
+        echo 'Simulate step 06'
+        // withCredentials([
+        //   string(credentialsId: 'FORT_BACKEND_PORT', variable: 'FORT_BACKEND_PORT'),
+        //   string(credentialsId: 'FORT_PG_HOST', variable: 'FORT_PG_HOST'),
+        //   string(credentialsId: 'FORT_PG_PORT', variable: 'FORT_PG_PORT'),
+        //   string(credentialsId: 'FORT_PG_USER', variable: 'FORT_PG_USER'),
+        //   string(credentialsId: 'FORT_PG_PASSWORD', variable: 'FORT_PG_PASSWORD'),
+        //   string(credentialsId: 'FORT_PG_DATABASE', variable: 'FORT_PG_DATABASE'),
+        // ]) {
+        //   sh '''
+        //     echo "FORT_BACKEND_PORT=$FORT_BACKEND_PORT" > .env
+        //     echo "FORT_PG_HOST=$FORT_PG_HOST" >> .env
+        //     echo "FORT_PG_PORT=$FORT_PG_PORT" >> .env
+        //     echo "FORT_PG_USER=$FORT_PG_USER" >> .env
+        //     echo "FORT_PG_PASSWORD=$FORT_PG_PASSWORD" >> .env
+        //     echo "FORT_PG_DATABASE=$FORT_PG_DATABASE" >> .env
+        //     docker compose down
+        //     docker compose up -d --build
+        //   '''
+        // }
+      }
+    }
+
+    stage('07. Clean Up') {
+      steps {
+        echo 'Simulate step 07'
+        // sh 'docker image prune -f'
       }
     }
   }
 
   post {
-    success {
-      sh '''
-        mkdir -p web/badges
-        badge build passed :brightgreen > ${BADGE_PATH}
-      '''
-    }
-
-    failure {
-      sh '''
-        mkdir -p web/badges
-        badge build failed :critical > ${BADGE_PATH}
-      '''
-    }
-
     always {
+      script {
+        def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :critical'
+      }
+
       sh '''
+        mkdir -p web/badges
+        badge ${badgeText} > ${BADGE_PATH}
+
         git config user.name "jenkins"
         git config user.email "jenmcclair@hotmail.com"
         git add ${BADGE_PATH}
