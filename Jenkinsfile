@@ -94,13 +94,13 @@ pipeline {
         sshagent(credentials: ['all-purpose']) {
           def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :red'
           sh """
-            git config user.name 'jenkins'
-            git config user.email 'jenmcclair@hotmail.com'
-            git checkout main
             mkdir -p web/badges
             badge ${badgeText} > ${BADGE_PATH}
+            git config user.name 'jenkins'
+            git config user.email 'jenmcclair@hotmail.com'
             git fetch origin
-            git rebase origin/main
+            git checkout -B main
+            git merge origin/main --no-edit || echo "Already up to date"
             git add ${BADGE_PATH}
             git commit -m "Update build status badge [ci skip]" || echo "No changes to commit"
             git push origin main
