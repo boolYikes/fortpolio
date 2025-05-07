@@ -89,7 +89,7 @@ pipeline {
 
   post {
     always {
-      sshagent(['all-purpose']) {
+      sshagent(credentials: ['all-purpose']) {
         script {
           def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :red'
         }
