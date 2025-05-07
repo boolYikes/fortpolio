@@ -26,7 +26,7 @@ pipeline {
 
     stage('03. Prep Badge CLI') {
       steps {
-        sh 'npm install -g badge'
+        sh 'npm install -g badge-maker'
       }
     }
 
