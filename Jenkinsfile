@@ -76,7 +76,7 @@ pipeline {
 
   post {
     success {
-      steps {
+      step {
         sh '''
           mkdir -p web/badges
           badge build passed :brightgreen > ${BADGE_PATH}
@@ -85,7 +85,7 @@ pipeline {
     }
 
     failure {
-      steps {
+      step {
         sh '''
           mkdir -p web/badges
           badge build failed :critical > ${BADGE_PATH}
@@ -94,7 +94,7 @@ pipeline {
     }
 
     always {
-      steps {
+      step {
         sh '''
           git config user.name "jenkins"
           git config user.email "jenmcclair@hotmail.com"
