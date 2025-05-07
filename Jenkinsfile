@@ -53,8 +53,8 @@ pipeline {
             echo "FORT_PG_USER=$FORT_PG_USER" >> .env
             echo "FORT_PG_PASSWORD=$FORT_PG_PASSWORD" >> .env
             echo "FORT_PG_DATABASE=$FORT_PG_DATABASE" >> .env
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up -d --build
           '''
         }
       }
