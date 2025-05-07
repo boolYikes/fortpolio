@@ -13,9 +13,10 @@ pipeline {
   stages {
     stage('01. Checkout') {
       steps {
-          sshagent(['all-purpose']) {
-            git branch: 'main', url: 'git@github.com:boolYikes/fortpolio.git'
-          }
+          checkout scm
+          // sshagent(['all-purpose']) {
+          //   git branch: 'main', url: 'git@github.com:boolYikes/fortpolio.git'
+          // }
       }
     }
 
@@ -88,21 +89,18 @@ pipeline {
 
   post {
     always {
-      script {
-        def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :critical'
+      sshagent(['all-purpose']) {
+        def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :red'
 
         sh "mkdir -p web/badges"
         sh "badge ${badgeText} > ${BADGE_PATH}"
         sh "git config user.name 'jenkins'"
         sh "git config user.email 'jenmcclair@hotmail.com'"
-
-        sshagent(['all-purpose']) {
-          sh """
-            git add ${BADGE_PATH}
-            git commit -m "Update build status badge [ci skip]" || echo "No changes to commit"
-            git push origin main
-          """
-        }
+        sh """
+          git add ${BADGE_PATH}
+          git commit -m "Update build status badge [ci skip]" || echo "No changes to commit"
+          git push origin main
+        """
       }
     }
   }
