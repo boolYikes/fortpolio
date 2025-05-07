@@ -17,6 +17,13 @@ pipeline {
       }
     }
 
+    stage('Debug Git') {
+      steps {
+        sh 'git log -1'
+        sh 'git diff-tree --no-commit-id --name-only -r $GIT_COMMIT'
+      }
+    }
+
     stage('Install Dependencies') {
       steps {
         dir('web/client') {
