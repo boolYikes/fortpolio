@@ -89,11 +89,10 @@ pipeline {
 
   post {
     always {
-      script {
-        def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :red'
-      }
       sshagent(['all-purpose']) {
-
+        script {
+          def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :red'
+        }
         sh "mkdir -p web/badges"
         sh "badge ${badgeText} > ${BADGE_PATH}"
         sh "git config user.name 'jenkins'"
