@@ -93,12 +93,12 @@ pipeline {
         // def only lives inside the block's scope
         sshagent(credentials: ['all-purpose']) {
           def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :red'
-          sh "mkdir -p web/badges"
-          sh "badge ${badgeText} > ${BADGE_PATH}"
-          sh "git config user.name 'jenkins'"
-          sh "git config user.email 'jenmcclair@hotmail.com'"
           sh """
+            git config user.name 'jenkins'
+            git config user.email 'jenmcclair@hotmail.com'
             git checkout main
+            mkdir -p web/badges
+            badge ${badgeText} > ${BADGE_PATH}
             git fetch origin
             git rebase origin/main
             git add ${BADGE_PATH}
