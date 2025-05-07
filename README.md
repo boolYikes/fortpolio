@@ -26,7 +26,7 @@ How many times have i taken down the website?😁
     - `chmod 644 /var/jenkins_home/.ssh/known_hosts`
 - [x] Deployment
 - [x] Only one reverse proxy can exist(detach LB)
-- [ ] Detach Jenkins to a project and make a Dockerfile for user permissions
+- [x] Detach Jenkins to a project and make a Dockerfile for user permissions
 
 
 ## Logs
