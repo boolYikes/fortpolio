@@ -89,19 +89,20 @@ pipeline {
 
   post {
     always {
-      sshagent(credentials: ['all-purpose']) {
-        script {
+      script {
+        // def only lives inside the block's scope
+        sshagent(credentials: ['all-purpose']) {
           def badgeText = currentBuild.currentResult == 'SUCCESS' ? 'build passed :brightgreen' : 'build failed :red'
+          sh "mkdir -p web/badges"
+          sh "badge ${badgeText} > ${BADGE_PATH}"
+          sh "git config user.name 'jenkins'"
+          sh "git config user.email 'jenmcclair@hotmail.com'"
+          sh """
+            git add ${BADGE_PATH}
+            git commit -m "Update build status badge [ci skip]" || echo "No changes to commit"
+            git push origin main
+          """
         }
-        sh "mkdir -p web/badges"
-        sh "badge ${badgeText} > ${BADGE_PATH}"
-        sh "git config user.name 'jenkins'"
-        sh "git config user.email 'jenmcclair@hotmail.com'"
-        sh """
-          git add ${BADGE_PATH}
-          git commit -m "Update build status badge [ci skip]" || echo "No changes to commit"
-          git push origin main
-        """
       }
     }
   }
