@@ -28,7 +28,7 @@ How many times have i taken down the website?😁
 - [x] Only one reverse proxy can exist(detach LB)
 - [x] Detach Jenkins to a project and make a Dockerfile for user permissions
 
- 
+
 ## Logs
 - Images in a MUI Box won't expand to its parents width even though they are explicit.
     - can only assume that the size of the image must be box-content-driven
