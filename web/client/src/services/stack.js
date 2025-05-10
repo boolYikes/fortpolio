@@ -1,5 +1,6 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:5000/api/stack'
+// Must be a relative path!!
+const baseUrl = '/api/stack'
 
 const getMaster = async () => {
     const res = await axios.get(`${baseUrl}/1`, { headers: { 'Cache-Control': 'no-cache' } })

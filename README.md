@@ -35,3 +35,5 @@ How many times have i taken down the website?😁
     - IOW, the bg image is used as the bg of the texts, not the box element.
     - Read MUI docs for importing images
 - For Jenkins webhook, the payload url from the github-side should end with /. This was modified from the reverse proxy.
+- Dammit i forgot to branch
+- Add context path from the proxy side.

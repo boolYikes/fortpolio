@@ -31,7 +31,7 @@ const Header = () => {
                 </Box>
                 <Box
                     component="img"
-                    src="../src/assets/nope.jpg"
+                    src="/nope.jpg"
                     alt="Still not getting it"
                     sx={{
                         width: '65%',

@@ -5,9 +5,9 @@ import { Box, Typography, Button } from '@mui/material'
 
 // placeholders
 const projects = [
-    { image: '../src/assets/prog.jpg', description: 'Project 1 desc.', link: '#' },
-    { image: '../src/assets/prog.jpg', description: 'Project 1 desc.', link: '#' },
-    { image: '../src/assets/prog.jpg', description: 'Project 1 desc.', link: '#' },
+    { image: '/prog.jpg', description: 'Project 1 desc.', link: '#' },
+    { image: '/prog.jpg', description: 'Project 1 desc.', link: '#' },
+    { image: '/prog.jpg', description: 'Project 1 desc.', link: '#' },
 ]
 
 const Carousel = () => {

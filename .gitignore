@@ -4,3 +4,4 @@ blueprint.png
 images
 node_modules
 certbot/
+.vscode/
