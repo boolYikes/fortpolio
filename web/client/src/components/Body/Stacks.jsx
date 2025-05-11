@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Box, Typography, Grid2 } from '@mui/material'
+import PropTypes from 'prop-types'
 
 // these are placeholder icons
 // const techStacks = [
@@ -58,6 +59,10 @@ const Stacks = ({ techStacks }) => {
             </Box>
         </motion.div>
     )
+}
+
+Stacks.propTypes = {
+    techStacks: PropTypes.array,
 }
 
 export default Stacks
