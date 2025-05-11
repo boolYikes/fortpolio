@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "rm -rf ./dist && npm run pre-build && npm run post-build",
+    "pre-build": "vite build",
+    "post-build": "cp -r ./src/assets/* dist/",
     "lint": "eslint .",
     "preview": "vite preview"
   },

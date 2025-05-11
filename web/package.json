@@ -6,6 +6,7 @@
     "@mui/material": "^6.1.8"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev-deploy": "npm run build --prefix ./client/ && npm run start --prefix ./backend/"
   }
 }
