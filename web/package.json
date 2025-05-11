@@ -7,6 +7,15 @@
   },
   "scripts": {
     "test": "jest",
-    "dev-deploy": "npm run build --prefix ./client/ && npm run start --prefix ./backend/"
+    "dev-deploy": "npm run build --prefix ./client/ && npm run start --prefix ./backend/",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0"
+  },
+  "lint-staged": {
+    "client/**/*.{js,jsx,ts,tsx}": "cd client && eslint --fix",
+    "backend/**/*.{js,ts}": "cd backend && eslint --fix"
   }
 }
