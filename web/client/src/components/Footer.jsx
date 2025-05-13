@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Typography, Link } from '@mui/material'
 import { GitHub } from '@mui/icons-material'
 import { LinkedIn } from '@mui/icons-material'

@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 import Slider from 'react-slick'
 import { Box, Typography, Button } from '@mui/material'

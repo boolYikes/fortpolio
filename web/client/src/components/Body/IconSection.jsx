@@ -1,4 +1,3 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 import { Box, Grid2, Typography } from '@mui/material'
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'

@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/ma
 import MenuIcon from '@mui/icons-material/Menu'
 import Icon from '@mui/icons-material/Person'
 import { styled } from '@mui/system'
+import PropTypes from 'prop-types'
 
 // fudging props validation
 const NavBar = ({ profile }) => {
@@ -61,6 +62,10 @@ const NavBar = ({ profile }) => {
             </Toolbar>
         </AppBar>
     )
+}
+
+NavBar.propTypes = {
+    profile: PropTypes.object,
 }
 
 export default NavBar
