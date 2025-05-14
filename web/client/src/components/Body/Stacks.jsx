@@ -21,7 +21,7 @@ const Stacks = ({ techStacks }) => {
           bgcolor: 'background.default',
         }}
       >
-        <Grid2 container spacing={1} sx={{ width: '80%' }}>
+        <Grid2 container spacing={2} sx={{ width: '80%' }}>
           {techStacks.map((stack, index) => {
             const isEven = index % 2 === 0;
             return (
