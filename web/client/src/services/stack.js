@@ -1,12 +1,23 @@
-import axios from 'axios'
+import axios from 'axios';
 // Must be a relative path!!
-const baseUrl = '/api/stack'
+const baseUrl = '/api/stack';
 
+// fetches all. currently unused
 const getMaster = async () => {
-    const res = await axios.get(`${baseUrl}/1`, { headers: { 'Cache-Control': 'no-cache' } })
-    return res.data
-}
+  const res = await axios.get(`${baseUrl}/all`, {
+    headers: { 'Cache-Control': 'no-cache' },
+  });
+  return res.data;
+};
+
+const getStrong = async () => {
+  const res = await axios.get(`${baseUrl}/strong`, {
+    headers: { 'Cache-Control': 'no-cache' },
+  });
+  return res.data;
+};
 
 export default {
-    getMaster
-}
+  getMaster,
+  getStrong,
+};

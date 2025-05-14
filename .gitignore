@@ -5,3 +5,4 @@ images
 node_modules
 certbot/
 .vscode/
+pg-dev.sh
