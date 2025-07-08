@@ -74,8 +74,10 @@ const IconSection = () => {
             return (
               <Grid2 key={index} xs={12} sm={6} md={3} textAlign="center">
                 <CustomTooltip title={item.description}>
-                  <Box sx={{ fontSize: '2rem' }}>{icon}</Box>
-                  <Typography sx={{ fontSize: '1.5rem' }}>{title}</Typography>
+                  <Box>
+                    <Box sx={{ fontSize: '2rem' }}>{icon}</Box>
+                    <Typography sx={{ fontSize: '1.5rem' }}>{title}</Typography>
+                  </Box>
                 </CustomTooltip>
               </Grid2>
             );

@@ -1,5 +1,6 @@
 // OR, use theme overrides... maybe later
 import { Tooltip, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
 const CustomTooltip = ({ children, title }) => {
   return (
@@ -36,6 +37,11 @@ const CustomTooltip = ({ children, title }) => {
       {children}
     </Tooltip>
   );
+};
+
+CustomTooltip.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string,
 };
 
 export default CustomTooltip;

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Box, Typography, Grid2 } from '@mui/material';
+import { Box, Grid2 } from '@mui/material';
 import PropTypes from 'prop-types';
 import IconWrapper from '../Icons/IconWrapper';
 
@@ -23,7 +23,6 @@ const Stacks = ({ techStacks }) => {
       >
         <Grid2 container spacing={2} sx={{ width: '80%' }}>
           {techStacks.map((stack, index) => {
-            const isEven = index % 2 === 0;
             return (
               /** in Grid2, item prop is implicit */
               <Grid2

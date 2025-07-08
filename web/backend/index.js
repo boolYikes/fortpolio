@@ -5,6 +5,7 @@
 // Test middleware
 
 const express = require('express');
+const cors = require('cors');
 require('dotenv').config();
 const sequelize = require('./config/database');
 const applyMiddlewares = require('./middlewares/commonMiddlewares');
@@ -14,6 +15,7 @@ const stackRoutes = require('./routes/stackRoutes');
 const traitsRoutes = require('./routes/traitsRoutes');
 
 const app = express();
+app.use(cors());
 
 const path = require('path');
 app.use('/', express.static(path.join(__dirname, '../client/dist')));

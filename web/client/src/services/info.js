@@ -1,11 +1,14 @@
-import axios from 'axios'
-const baseUrl = '/api/info'
+import axios from 'axios';
+
+// TODO: Conditionally choose env (.env for dev, compose env for prod)
+// const url = `${import.meta.env.VITE_BASE_URL}:${import.meta.env.VITE_BACKEND_PORT}`;
+const url = '/api/info';
 
 const getMaster = async () => {
-    const res = await axios.get(`${baseUrl}/1`, { headers: { 'Cache-Control': 'no-cache' } })
-    return res.data
-}
+  const res = await axios.get(`${url}/1`);
+  return res.data;
+};
 
 export default {
-    getMaster
-}
+  getMaster,
+};
