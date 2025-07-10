@@ -4,29 +4,33 @@
 // ✅Routers middleware
 // Test middleware
 
-const express = require('express')
-require('dotenv').config()
-const sequelize = require("./config/database")
-const applyMiddlewares = require("./middlewares/commonMiddlewares")
-const applyErrorHandler = require("./middlewares/errorHandler")
-const infoRoutes = require("./routes/infoRoutes")
-const stackRoutes = require("./routes/stackRoutes")
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+const sequelize = require('./config/database');
+const applyMiddlewares = require('./middlewares/commonMiddlewares');
+const applyErrorHandler = require('./middlewares/errorHandler');
+const infoRoutes = require('./routes/infoRoutes');
+const stackRoutes = require('./routes/stackRoutes');
+const traitsRoutes = require('./routes/traitsRoutes');
 
-const app = express()
+const app = express();
+app.use(cors());
 
-const path = require('path')
-app.use('/', express.static(path.join(__dirname, '../client/dist')))
+const path = require('path');
+app.use('/', express.static(path.join(__dirname, '../client/dist')));
 
-applyMiddlewares(app)
-app.use('/api/info', infoRoutes)
-app.use('/api/stack', stackRoutes)
-applyErrorHandler(app)
+applyMiddlewares(app);
+app.use('/api/info', infoRoutes);
+app.use('/api/stack', stackRoutes);
+app.use('/api/traits', traitsRoutes);
+applyErrorHandler(app);
 
-const PORT = process.env.FORT_BACKEND_PORT || 5000
+const PORT = process.env.FORT_BACKEND_PORT || 5000;
 
 app.listen(PORT, async () => {
-    console.log(`Server running on port ${PORT}`)
-    console.log("Githook test")
-    // await sequelize.sync({ alter: true }) // model syncing to DB
-    await sequelize.sync()
-})
+  console.log(`Server running on port ${PORT}`);
+  console.log('Githook test');
+  // await sequelize.sync({ alter: true }) // model syncing to DB
+  await sequelize.sync();
+});

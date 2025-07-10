@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
+import headerIcon from '../assets/nope.jpg';
 
 const Header = () => {
   return (
@@ -61,7 +62,7 @@ const Header = () => {
               automation
             </Box>{' '}
             systems that do their job so well, you forget they exist — like good
-            plumbing or a decent plot twist. Whether it's wrangling messy
+            plumbing or a decent plot twist. Whether it’s wrangling messy
             streams, taming flaky schedulers, or duct-taping APIs until they
             behave, I’m here for the weird, the broken, and the beautifully
             complex. My mission? Make things{' '}
@@ -83,7 +84,7 @@ const Header = () => {
         </Box>
         <Box
           component="img"
-          src="/nope.jpg"
+          src={headerIcon}
           alt="Still not getting it"
           sx={{
             width: '65%',

@@ -13,7 +13,7 @@ const IconWrapper = ({ src, alt }) => {
           p: 1.5,
           // backgroundColor: 'rgba(200, 200, 200, 0.2)',
           // backgroundColor: 'white',
-          borderRadius: 2,
+          borderradius: 2,
           // boxShadow: 3,
           display: 'flex',
           justifyContent: 'center',
@@ -24,7 +24,7 @@ const IconWrapper = ({ src, alt }) => {
         {!loaded && (
           <Skeleton
             variant="rectangular"
-            borderRadius={2}
+            borderradius={2}
             width={48}
             animation="wave"
             height={48}

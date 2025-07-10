@@ -1,8 +1,15 @@
-memo.md
+# secrets
 .env
+
+# development db
+pg-dev.sh
+
+# dependency tree
+node_modules
+
+# others
+memo.md
+.vscode/
 blueprint.png
 images
-node_modules
 certbot/
-.vscode/
-pg-dev.sh
