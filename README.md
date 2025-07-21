@@ -1,16 +1,13 @@
 ![Build Status](./web/badges/build-status.svg)
 
-## Waaaab Aaaaaab
+### Logs
 
-## WIP
+- For Jenkins webhook, the payload url from the github-side should end with /. This was modified from the reverse proxy.
 
-- Half-way there!
-- How many times have i taken down the website?😁
+### Done
 
-## Done
-
-These are tracked under issues now.
-
+<details>
+<summary>These are tracked under issues now.</summary>
 - [x] Prototyping(Figma)
 - [x] Rough mock up
 - [x] Branch out from now on, divide & conquer
@@ -29,11 +26,4 @@ These are tracked under issues now.
 - [x] Deployment
 - [x] Only one reverse proxy can exist(detach LB)
 - [x] Detach Jenkins to a project and make a Dockerfile for user permissions
-
-## Logs
-
-- Images in a MUI Box won't expand to its parents width even though they are explicit.
-  - can only assume that the size of the image must be box-content-driven
-  - IOW, the bg image is used as the bg of the texts, not the box element.
-  - Read MUI docs for importing images
-- For Jenkins webhook, the payload url from the github-side should end with /. This was modified from the reverse proxy.
+</details>

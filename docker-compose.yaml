@@ -16,6 +16,7 @@ services:
     networks:
       - default
       - deeverse_proxy
+      - shared_services # mail proxy
 
   db:
     image: postgres:13
@@ -37,4 +38,6 @@ volumes:
 
 networks:
   deeverse_proxy:
+    external: true
+  shared_services:
     external: true

@@ -30,7 +30,7 @@ const App = () => {
       <Intermission />
       <Carousel />
       <IconSection />
-      <Contact />
+      <Contact to={profile.email} />
       <Footer />
     </>
   );
