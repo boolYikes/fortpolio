@@ -13,3 +13,7 @@ memo.md
 blueprint.png
 images
 certbot/
+
+*.zip
+
+**/media_assets/*

@@ -12,7 +12,8 @@ services:
       - ${FORT_PG_PASSWORD}=${FORT_PG_PASSWORD}
       - ${FORT_PG_DATABASE}=${FORT_PG_DATABASE}
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - default
       - deeverse_proxy
@@ -22,7 +23,7 @@ services:
     image: postgres:13
     ports:
       - '5433:5432'
-    user: '1000:1000'
+    # user: '1000:1000'
     environment:
       POSTGRES_DB: ${FORT_PG_DATABASE}
       POSTGRES_USER: ${FORT_PG_USER}
@@ -32,6 +33,11 @@ services:
     networks:
       - default
       - deeverse_proxy
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-U', 'user']
+      interval: 20s
+      timeout: 10s
+      retries: 5
 
 volumes:
   fortpolio:

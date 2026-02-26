@@ -26,4 +26,5 @@
 - [x] Deployment
 - [x] Only one reverse proxy can exist(detach LB)
 - [x] Detach Jenkins to a project and make a Dockerfile for user permissions
+- [ ] Handle .envs at build time (be compat with CI/CD)
 </details>

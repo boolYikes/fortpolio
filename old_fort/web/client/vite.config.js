@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/fortpolio/', // crucial for asset/script URLs
   server: {
     proxy: {
       '/api': 'http://localhost:5000',

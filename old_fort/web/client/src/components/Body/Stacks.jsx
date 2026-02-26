@@ -44,7 +44,7 @@ const Stacks = ({ techStacks }) => {
               >
                 {stack.icon ? (
                   <IconWrapper
-                    src={`/svg/${stack.icon}.svg`}
+                    src={`${import.meta.env.BASE_URL}svg/${stack.icon}.svg`}
                     alt={stack.title}
                   />
                 ) : (
