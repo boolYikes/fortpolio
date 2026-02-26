@@ -1,0 +1,76 @@
+name: Sync READMEs and Deploy
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # every 24 hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-readmes-and-deploy
+  cancel-in-progress: false
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Sync READMEs into markdowns folder
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ORGS: ${{ secrets.ORGS }} # optional: comma-separated orgs you own
+          EXCLUDE_FULL_NAME: ${{ github.repository }}
+        run: node scripts/syncReadmes.mjs
+
+      - name: Detect changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run tests
+        if: steps.changes.outputs.changed == 'true'
+        run: npm test
+
+      - name: Regenerate project metadata
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run generate
+
+      - name: Commit changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/markdowns src/content/generated/projects.json
+          git commit -m "chore: sync portfolio markdowns" || exit 0
+
+      - name: Push changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git push
+
+      - name: Deploy to GitHub Pages (gh-pages)
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          # gh-pages uses git under the hood; this makes pushes authenticated.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run deploy

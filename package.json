@@ -5,13 +5,14 @@
   "type": "module",
   "homepage": "https://boolYikes.github.io/fortpolio",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite --host",
+    "build": "rm -rf dist/ && tsc -b && vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "generate": "node scripts/generateProjects.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -47,8 +48,10 @@
     "globals": "^16.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
     "prettier": "^3.8.1",
     "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.48.0",
     "vite": "^7.3.1"
