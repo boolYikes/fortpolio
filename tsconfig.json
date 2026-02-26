@@ -5,6 +5,13 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@content/*": ["src/content/*"],
+      "@app/*": ["src/app/*"],
+      "@components/*": ["src/components/*"]
+    },
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "types": ["jest", "@testing-library/jest-dom", "node"]

@@ -7,7 +7,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <ProjectProvider jsonPath="../../content/generated/projects.json">
+      <ProjectProvider>
         <AppRouter />
       </ProjectProvider>
     </ThemeProvider>

@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import type { ProjectMeta } from '../../types/project'
+import projectsData from '@content/generated/projects.json'
 
 type SortMode = 'date-desc' | 'alpha'
 
@@ -13,26 +14,18 @@ interface ProjectContextValue {
   resetFilter: () => void
   loading: boolean
   allTags: string[]
-  jsonPath?: string
 }
 
 export const ProjectContext = createContext<ProjectContextValue | null>(null)
 
-export function ProjectProvider({
-  jsonPath,
-  children,
-}: {
-  jsonPath: string
-  children: React.ReactNode
-}) {
+export function ProjectProvider({ children }: { children: React.ReactNode }) {
   const [projects, setProjects] = useState<ProjectMeta[]>([])
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [sortMode, setSortMode] = useState<SortMode>('date-desc')
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     async function init() {
-      const data = await import(jsonPath)
-      setProjects(data.default)
+      setProjects(projectsData)
       setLoading(false)
     }
 
@@ -87,7 +80,6 @@ export function ProjectProvider({
         resetFilter,
         loading,
         allTags,
-        jsonPath,
       }}
     >
       {children}

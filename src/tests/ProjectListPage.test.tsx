@@ -35,7 +35,6 @@ function renderWithContext(visibleProjects: ProjectMeta[]) {
           resetFilter: jest.fn(),
           loading: false,
           allTags: [],
-          jsonPath: '../content/generated/projects.json',
         }}
       >
         <ProjectListPage />
