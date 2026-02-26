@@ -1,4 +1,4 @@
-name: Sync READMEs and Deploy
+name: Deployment
 
 on:
   schedule:

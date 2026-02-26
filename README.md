@@ -1,73 +1,95 @@
-# React + TypeScript + Vite
+## Fortpolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Deployment](https://github.com/boolyikes/fortpolio/actions/workflows/sync-readmes-and-deploy.yml/badge.svg)](https://github.com/boolyikes/fortpolio/actions/workflows/sync-readmes-and-deploy.yml)
 
-Currently, two official plugins are available:
+Personal static portfolio powered by **React + Vite + TypeScript**, deployed via **GitHub Pages**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Live site:  
+https://boolyikes.github.io/fortpolio/
 
-## React Compiler
+### ✨ Overview
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This portfolio is fully static and automatically synchronized with selected GitHub repositories.
 
-## Expanding the ESLint configuration
+Every 24 hours:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- GitHub Actions polls all owned repositories (including private + specified orgs)
+- Repositories with valid README frontmatter are collected
+- README files are copied into `src/content/markdowns/`
+- Metadata is generated at build time
+- Tests run
+- Site rebuilds
+- `gh-pages` branch updates
+- GitHub Pages redeploys
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+No backend required.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🧱 Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Hosting**: GitHub Pages
+- **Framework**: React (Vite + TypeScript)
+- **UI**: MUI
+- **Routing**: React Router (HashRouter)
+- **Markdown Rendering**: react-markdown + remark-gfm + rehype-sanitize
+- **Frontmatter Parsing (build-time)**: gray-matter
+- **Tests**: Jest + Testing Library
+
+### 📂 Project Structure
+
+src/<br>
+├── app/<br>
+│ ├── layout/<br>
+│ ├── router/<br>
+│ ├── store/<br>
+│ └── theme/<br>
+├── components/<br>
+├── content/<br>
+│ ├── markdowns/ # Synced README files<br>
+│ └── generated/ # Auto-generated metadata<br>
+├── pages/<br>
+├── tests/<br>
+└── types/<br>
+scripts/<br>
+├── generateProjects.mjs<br>
+└── syncReadmes.mjs<br>
+
+### 📝 README Frontmatter Schema
+
+To be included in the portfolio, a repository’s `README.md` must contain:
+
+```yaml
+---
+name: Project Name
+date: 2026-03-01
+tags: [react, typescript]
+summary: Short description of the project.
+---
+If the schema does not match, the repository is ignored.
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 🚀 Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `npm install`
+- `npm run dev`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 🏗 Build
+
+- `npm run build`
+
+### 🚀 Deploy (Manual)
+
+- `npm run deploy`
+
+### 🔄 Automated Sync
+
+- The workflow runs every 24 hours:
+- .github/workflows/sync-readmes-and-deploy.yml
+- Syncs eligible README files
+- Regenerates metadata
+- Runs tests
+- Commits changes to main
+- Deploys to gh-pages
+
+### Note
+
+- THIS README WILL BE ANNIHILATED LOL
