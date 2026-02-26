@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import type { ProjectMeta } from '../../types/project'
 
 type SortMode = 'date-desc' | 'alpha'
@@ -19,7 +13,7 @@ interface ProjectContextValue {
   resetFilter: () => void
   loading: boolean
   allTags: string[]
-  jsonPath: string
+  jsonPath?: string
 }
 
 export const ProjectContext = createContext<ProjectContextValue | null>(null)
@@ -33,8 +27,7 @@ export function ProjectProvider({
 }) {
   const [projects, setProjects] = useState<ProjectMeta[]>([])
   const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [sortMode, setSortMode] =
-    useState<SortMode>('date-desc')
+  const [sortMode, setSortMode] = useState<SortMode>('date-desc')
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     async function init() {
@@ -52,23 +45,17 @@ export function ProjectProvider({
     // FILTER
     if (selectedTags.length > 0) {
       result = result.filter((p) =>
-        selectedTags.every((tag) =>
-          p.tags.includes(tag)
-        )
+        selectedTags.every((tag) => p.tags.includes(tag)),
       )
     }
 
     // SORT
     if (sortMode === 'date-desc') {
       result.sort(
-        (a, b) =>
-          new Date(b.date).getTime() -
-          new Date(a.date).getTime()
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
       )
     } else if (sortMode === 'alpha') {
-      result.sort((a, b) =>
-        a.name.localeCompare(b.name)
-      )
+      result.sort((a, b) => a.name.localeCompare(b.name))
     }
 
     return result
@@ -100,7 +87,7 @@ export function ProjectProvider({
         resetFilter,
         loading,
         allTags,
-        jsonPath
+        jsonPath,
       }}
     >
       {children}
@@ -110,9 +97,6 @@ export function ProjectProvider({
 
 export function useProjects() {
   const ctx = useContext(ProjectContext)
-  if (!ctx)
-    throw new Error(
-      'useProjects must be used inside ProjectProvider'
-    )
+  if (!ctx) throw new Error('useProjects must be used inside ProjectProvider')
   return ctx
 }
