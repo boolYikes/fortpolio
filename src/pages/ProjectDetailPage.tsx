@@ -1,9 +1,4 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Typography
-} from '@mui/material'
+import { Box, Button, CircularProgress, Typography } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -12,6 +7,10 @@ import rehypeRaw from 'rehype-raw'
 import rehypeSanitize from 'rehype-sanitize'
 import { markdownModules } from '../content/markdownRegistry'
 import { useProjects } from '../app/store/ProjectContext'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
+
+import 'github-markdown-css/github-markdown.css'
 
 function extractContent(raw: string) {
   const match = raw.match(/^---[\s\S]*?---/)
@@ -23,7 +22,7 @@ export default function ProjectDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const prevRef = useRef<{
-    selectedTags: string[] 
+    selectedTags: string[]
     sortMode: string
   } | null>(null)
 
@@ -35,12 +34,7 @@ export default function ProjectDetailPage() {
     return true
   }
 
-  const {
-    visibleProjects,
-    loading,
-    selectedTags,
-    sortMode,
-  } = useProjects()
+  const { visibleProjects, loading, selectedTags, sortMode } = useProjects()
 
   const [content, setContent] = useState<string | null>(null)
   const [notFound, setNotFound] = useState(false)
@@ -54,16 +48,12 @@ export default function ProjectDetailPage() {
   }
 
   // id invalid compared to curr filtered list
-  const currentIndex = visibleProjects.findIndex(
-    (p) => p.id === id
-  )
+  const currentIndex = visibleProjects.findIndex((p) => p.id === id)
 
   // proj don't exist in curr visible list
   useEffect(() => {
     if (loading || !id) return
-    const exists = visibleProjects.some(
-      (p) => p.id === id
-    )
+    const exists = visibleProjects.some((p) => p.id === id)
 
     setNotFound(!exists)
   }, [id, visibleProjects, loading])
@@ -73,12 +63,12 @@ export default function ProjectDetailPage() {
     async function load() {
       if (!id || notFound) return
 
-      const path = Object.keys(
-        markdownModules
-      ).find((p) => p.endsWith(`${id}.md`))
+      const path = Object.keys(markdownModules).find((p) =>
+        p.endsWith(`${id}.md`),
+      )
 
       if (!path) {
-        setNotFound(true) 
+        setNotFound(true)
         return
       }
 
@@ -97,9 +87,8 @@ export default function ProjectDetailPage() {
 
     const prev = prevRef.current
     const changed =
-      prev.sortMode !== sortMode ||
-      !sameTags(prev.selectedTags, selectedTags)
-    
+      prev.sortMode !== sortMode || !sameTags(prev.selectedTags, selectedTags)
+
     // update snapshot first (avoid loops)
     prevRef.current = { selectedTags, sortMode }
 
@@ -125,47 +114,25 @@ export default function ProjectDetailPage() {
     )
   }
 
-  const prev =
-    currentIndex > 0
-      ? visibleProjects[currentIndex - 1]
-      : null
+  const prev = currentIndex > 0 ? visibleProjects[currentIndex - 1] : null
 
   const next =
-    currentIndex >= 0 &&
-    currentIndex < visibleProjects.length - 1
+    currentIndex >= 0 && currentIndex < visibleProjects.length - 1
       ? visibleProjects[currentIndex + 1]
       : null
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      gap={4}
-    >
+    <Box display="flex" flexDirection="column" alignItems="center" gap={4}>
       {/* Top Back */}
-      <Button onClick={() => navigate('/')}>
-        To the list
-      </Button>
+      <Button onClick={() => navigate('/')}>To the list</Button>
 
       {/* Content with prev/next */}
-      <Box
-        display="flex"
-        width="100%"
-        maxWidth="900px"
-        gap={2}
-      >
+      <Box display="flex" width="100%" maxWidth="900px" gap={2}>
         {/* Previous */}
-        <Box
-          display="flex"
-          alignItems="center"
-          minWidth="60px"
-        >
+        <Box display="flex" alignItems="center" minWidth="60px">
           {prev && (
             <Button
-              onClick={() =>
-                navigate(`/project/${prev.id}`)
-              }
+              onClick={() => navigate(`/project/${prev.id}`)}
               sx={{ fontSize: 32 }}
             >
               ◀
@@ -174,13 +141,33 @@ export default function ProjectDetailPage() {
         </Box>
 
         {/* Markdown */}
-        <Box flex={1} sx={{ overflowWrap: 'anywhere' }}>
+        <Box
+          className="markdown-body"
+          flex={1}
+          sx={{ overflowWrap: 'anywhere' }}
+        >
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
-            rehypePlugins={[
-              rehypeRaw,
-              rehypeSanitize,
-            ]}
+            rehypePlugins={[rehypeRaw, rehypeSanitize]}
+            components={{
+              code({ className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || '')
+                return match ? (
+                  <SyntaxHighlighter
+                    style={oneLight}
+                    language={match[1]}
+                    PreTag="div"
+                    {...props}
+                  >
+                    {String(children).replace(/\n$/, '')}
+                  </SyntaxHighlighter>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                )
+              },
+            }}
           >
             {content}
           </ReactMarkdown>
@@ -195,9 +182,7 @@ export default function ProjectDetailPage() {
         >
           {next && (
             <Button
-              onClick={() =>
-                navigate(`/project/${next.id}`)
-              }
+              onClick={() => navigate(`/project/${next.id}`)}
               sx={{ fontSize: 32 }}
             >
               ▶
@@ -207,9 +192,7 @@ export default function ProjectDetailPage() {
       </Box>
 
       {/* Bottom Back */}
-      <Button onClick={() => navigate('/')}>
-        To the list
-      </Button>
+      <Button onClick={() => navigate('/')}>To the list</Button>
     </Box>
   )
 }

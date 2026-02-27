@@ -34,17 +34,21 @@ jobs:
       - name: Sync READMEs into markdowns folder
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
-          ORGS: ${{ secrets.ORGS }} # optional: comma-separated orgs you own
+          ORGS: ${{ secrets.ORGS }} # comma-separated orgs
           EXCLUDE_FULL_NAME: ${{ github.repository }}
         run: node scripts/syncReadmes.mjs
 
       - name: Detect changes
         id: changes
         run: |
-          if git diff --quiet; then
-            echo "changed=false" >> $GITHUB_OUTPUT
+          status="$(git status --porcelain)"
+
+          echo "$status"
+
+          if [ -n "$status" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           else
-            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run tests
@@ -71,6 +75,6 @@ jobs:
       - name: Deploy to GitHub Pages (gh-pages)
         if: steps.changes.outputs.changed == 'true'
         env:
-          # gh-pages uses git under the hood; this makes pushes authenticated.
+          # gh-pages uses it
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run deploy
