@@ -75,6 +75,7 @@ jobs:
       - name: Deploy to GitHub Pages (gh-pages)
         if: steps.changes.outputs.changed == 'true'
         env:
-          # gh-pages uses it
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run deploy
+        # Builds and deploys to Pages
+        # ${} expansion works in ubuntu inside package.json, supposedly...
+        run: npm run deploy -- -r "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
