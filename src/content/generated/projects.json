@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "boolYikes_deeverse-proxy",
+    "name": "Dee-verse Proxy",
+    "date": "2025-06-01T00:00:00.000Z",
+    "tags": [
+      "nginx",
+      "certbot",
+      "docker"
+    ],
+    "summary": "Nginx L7 proxy for home server"
+  },
+  {
+    "id": "boolYikes_dyrmgraph",
+    "name": "DyrmGraph",
+    "date": "2026-02-27T00:00:00.000Z",
+    "tags": [
+      "Python"
+    ],
+    "summary": "Testing deployment"
+  }
+]

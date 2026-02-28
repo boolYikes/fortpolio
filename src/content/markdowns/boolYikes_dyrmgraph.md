@@ -1,0 +1,47 @@
+---
+name: DyrmGraph
+date: 2026-02-27
+tags: [Python]
+summary: Testing deployment
+---
+
+## dyrmgraph (WIP)
+### Usage
+```bash
+docker compose up -d --build
+
+docker compose exec kafka bash /scripts/create_kafka_topics.sh
+
+# Cron has replaced Airflow
+# docker compose exec airflow airflow dags trigger gdelt_etl
+```
+
+### Todos:
+- [x] Extract and first add to postgres
+- [x] Join gkg-events-mentions to build a one-table-schema(Transform)
+- [x] Publish + Topic init script
+- [x] File not found exception - local side
+- [x] Order the column list json by the actual order in respective tables
+- [x] Add CSV Ingestion
+- [x] Logger
+- [x] class-based
+- [ ] prune_columns to transform not gdelt
+- [ ] Airflow tests
+- [x] Spark + parquet
+- [ ] Encapsulate and validate, use property
+- [x] Column number extractor
+- [ ] kibana config mount in compose
+- [ ] Spark service in compose + changes to Config class + driver/exec memory
+- [ ] Spark master url in code
+- [ ] Use KRaft
+- [x] Implement lazy loading
+- [ ] Alerts: content - Insufficient tables, etc
+- [ ] Downstream pipeline adjustment << 
+- [ ] Use enums
+- [x] Test suite
+- [ ] Freeze deps
+- [ ] Future
+- [x] Typing
+- [ ] Typing suite for spark, kafka etc
+- [ ] Sort by <=> similarty, for canonical events listing
+- [ ] Manifests, charts, configs for GKE
