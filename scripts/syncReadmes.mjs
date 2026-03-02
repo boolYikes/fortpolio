@@ -129,21 +129,35 @@ async function main() {
     const owner = repo.owner?.login
     const name = repo.name
     const defaultBranch = repo.default_branch
+    console.log('-------------------------------------------------')
+    console.log(`Processing repo ${owner}/${name}`)
 
-    if (!owner || !name || !defaultBranch) continue
+    if (!owner || !name || !defaultBranch) {
+      console.log('No owner/name/branch provided. Passing')
+      console.log('-------------------------------------------------')
+      continue
+    }
 
     const raw = await ghFetchRawReadme(owner, name, defaultBranch)
-    if (!raw) continue
+    if (!raw) {
+      console.log('No readme found. Passing')
+      console.log('-------------------------------------------------')
+      continue
+    }
 
     // Validate frontmatter schema using gray-matter
     let parsed
     try {
       parsed = matter(raw)
-    } catch {
+    } catch (e) {
+      console(`Error occurred during MD parsing: ${e}`)
+      console.log('-------------------------------------------------')
       continue
     }
 
     if (!isFrontmatterValid(parsed.data)) {
+      console.log('Invalid front matter or no front matter found. Passing')
+      console.log('-------------------------------------------------')
       continue
     }
 
@@ -160,14 +174,16 @@ async function main() {
     if (prevContent !== nextContent) {
       fs.writeFileSync(outPath, nextContent, 'utf-8')
       changed++
-      console.log(`Updated: ${fileName}`)
+      console.log(`${owner}/${name} parsed and updated: ${fileName}`)
     }
+
+    console.log('-------------------------------------------------')
   }
 
   console.log(`Eligible repos: ${eligible}`)
   console.log(`Changed markdowns: ${changed}`)
 
-  // Exit code 0 always; workflow decides based on git diff.
+  // Exit code 0 always; workflow decides based on ~~git diff~~ status.
 }
 
 main().catch((e) => {
