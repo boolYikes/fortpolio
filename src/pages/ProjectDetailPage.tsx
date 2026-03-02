@@ -142,35 +142,45 @@ export default function ProjectDetailPage() {
 
         {/* Markdown */}
         <Box
-          className="markdown-body"
           flex={1}
-          sx={{ overflowWrap: 'anywhere' }}
+          sx={(theme) => ({
+            backgroundColor:
+              theme.palette.mode === 'dark' ? '#0d1117' : '#ffffff',
+            border:
+              theme.palette.mode === 'dark'
+                ? '1px solid #30363d'
+                : '1px solid #d0d7de',
+            borderRadius: '6px',
+            padding: 4,
+          })}
         >
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw, rehypeSanitize]}
-            components={{
-              code({ className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || '')
-                return match ? (
-                  <SyntaxHighlighter
-                    style={oneLight}
-                    language={match[1]}
-                    PreTag="div"
-                    {...props}
-                  >
-                    {String(children).replace(/\n$/, '')}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                )
-              },
-            }}
-          >
-            {content}
-          </ReactMarkdown>
+          <Box className="markdown-body" sx={{ overflowWrap: 'anywhere' }}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw, rehypeSanitize]}
+              components={{
+                code({ className, children, ...props }) {
+                  const match = /language-(\w+)/.exec(className || '')
+                  return match ? (
+                    <SyntaxHighlighter
+                      style={oneLight}
+                      language={match[1]}
+                      PreTag="div"
+                      {...props}
+                    >
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  )
+                },
+              }}
+            >
+              {content}
+            </ReactMarkdown>
+          </Box>
         </Box>
 
         {/* Next */}
