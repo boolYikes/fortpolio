@@ -18,5 +18,46 @@
       "Python"
     ],
     "summary": "Testing deployment"
+  },
+  {
+    "id": "classroom-dee_.github",
+    "name": "Org Landing",
+    "date": "2026-02-01T00:00:00.000Z",
+    "tags": [
+      "kubernetes",
+      "gke",
+      "argocd",
+      "githubaction",
+      "docker",
+      "python",
+      "java",
+      "spring",
+      "spark",
+      "aws",
+      "dbt",
+      "airflow",
+      "rust",
+      "node",
+      "react",
+      "reactnative",
+      "gql",
+      "typescript"
+    ],
+    "summary": "An org for organizing study material and old projects"
+  },
+  {
+    "id": "classroom-dee_miniapps",
+    "name": "Mini Apps Collection",
+    "date": "2026-03-01T00:00:00.000Z",
+    "tags": [
+      "githubaction",
+      "docker",
+      "python",
+      "node",
+      "react",
+      "typescript",
+      "cloudflare"
+    ],
+    "summary": "A collection of small projects and PoCs"
   }
 ]
