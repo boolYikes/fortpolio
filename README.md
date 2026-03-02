@@ -24,7 +24,7 @@ Every 24 hours:
 
 No backend required.
 
-### 🧱 Tech Stack
+### 🧱 Tools
 
 - **Hosting**: GitHub Pages
 - **Framework**: React (Vite + TypeScript)
@@ -74,22 +74,13 @@ If the schema does not match, the repository is ignored.
 
 ### 🏗 Build
 
+- _predeploy command already does this_
 - `npm run build`
 
 ### 🚀 Deploy (Manual)
 
 - `npm run deploy`
 
-### 🔄 Automated Sync
-
-- The workflow runs every 24 hours:
-- .github/workflows/sync-readmes-and-deploy.yml
-- Syncs eligible README files
-- Regenerates metadata
-- Runs tests
-- Commits changes to main
-- Deploys to gh-pages
-
 ### Note
 
-- THIS README WILL BE ANNIHILATED LOL
+- Org fetching seems redundant (**user repo fetch** with a token already fetches all user owned repos)

@@ -8,7 +8,13 @@ const ORGS = (process.env.ORGS || '')
   .map((s) => s.trim())
   .filter(Boolean)
 
-const EXCLUDE_FULL_NAME = process.env.EXCLUDE_FULL_NAME
+// try to catch it
+const EXCLUSIONS = fs
+  .readFileSync(path.resolve('.syncignore'), 'utf-8')
+  .split('\n')
+  .map((line) => line.trim())
+  .filter(Boolean)
+
 const OUTPUT_DIR = path.resolve('src/content/markdowns')
 
 if (!GH_TOKEN) {
@@ -112,8 +118,9 @@ async function main() {
     all.push(...(await listOrgRepos(org)))
   }
 
-  const repos = uniqueByFullName(all)
-    .filter((r) => r?.full_name && r.full_name !== EXCLUDE_FULL_NAME)
+  const repos = uniqueByFullName(all).filter(
+    (r) => r?.full_name && !EXCLUSIONS.includes(r.full_name),
+  )
 
   let changed = 0
   let eligible = 0
