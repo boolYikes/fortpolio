@@ -1,9 +1,17 @@
 import { createTheme } from '@mui/material/styles'
 
-const theme = createTheme({
-  typography: {
-    fontFamily: 'Ubuntu, sans-serif',
-  },
-})
+// const theme = createTheme({
+//   typography: {
+//     fontFamily: 'Ubuntu, sans-serif',
+//   },
+// })
 
-export default theme
+export const getTheme = (mode: 'light' | 'dark') =>
+  createTheme({
+    typography: {
+      fontFamily: 'Ubuntu, sans-serif',
+    },
+    palette: {
+      mode,
+    },
+  })

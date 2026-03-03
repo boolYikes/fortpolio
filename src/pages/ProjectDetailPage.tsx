@@ -1,14 +1,27 @@
-import { Box, Button, CircularProgress, Typography } from '@mui/material'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
+
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Typography,
+  IconButton,
+  Fab,
+} from '@mui/material'
+import ArrowBackIosNew from '@mui/icons-material/ArrowBackIosNew'
+import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
+import ListIcon from '@mui/icons-material/List'
+
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 import rehypeSanitize from 'rehype-sanitize'
-import { markdownModules } from '../content/markdownRegistry'
-import { useProjects } from '../app/store/ProjectContext'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
+
+import { markdownModules } from '../content/markdownRegistry'
+import { useProjects } from '../app/store/ProjectContext'
 
 import 'github-markdown-css/github-markdown.css'
 
@@ -122,27 +135,90 @@ export default function ProjectDetailPage() {
       : null
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" gap={4}>
-      {/* Top Back */}
-      <Button onClick={() => navigate('/')}>To the list</Button>
+    <Box display="flex" flexDirection="column" alignItems="center">
+      {/* FIXED LEFT ARROW */}
+      {prev && (
+        <IconButton
+          onClick={() => navigate(`/project/${prev.id}`)}
+          sx={{
+            position: 'fixed',
+            left: 24,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            // fontSize: 32,
+            // minWidth: 0,
+            bgcolor: 'background.paper',
+            boxShadow: 3,
+            '&:hover': {
+              boxShadow: 6,
+              transform: 'translateY(-50%) scale(1.05)',
+            },
+            zIndex: 10,
+          }}
+        >
+          <ArrowBackIosNew fontSize="small" />
+        </IconButton>
+      )}
 
-      {/* Content with prev/next */}
-      <Box display="flex" width="100%" maxWidth="900px" gap={2}>
-        {/* Previous */}
-        <Box display="flex" alignItems="center" minWidth="60px">
-          {prev && (
-            <Button
-              onClick={() => navigate(`/project/${prev.id}`)}
-              sx={{ fontSize: 32 }}
-            >
-              ◀
-            </Button>
-          )}
-        </Box>
+      {/* FIXED RIGHT ARROW */}
+      {next && (
+        <IconButton
+          onClick={() => navigate(`/project/${next.id}`)}
+          sx={{
+            position: 'fixed',
+            right: 24,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            // fontSize: 32,
+            // minWidth: 0,
+            bgcolor: 'background.paper',
+            boxShadow: 3,
+            '&:hover': {
+              boxShadow: 6,
+              transform: 'translateY(-50%) scale(1.05)',
+            },
+            zIndex: 10,
+          }}
+        >
+          <ArrowForwardIos fontSize="small" />
+        </IconButton>
+      )}
 
-        {/* Markdown */}
+      {/* FIXED BOTTOM BUTTON */}
+      <Box
+        sx={{
+          position: 'fixed',
+          bottom: 32,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 10,
+          '&:hover': {
+            transform: 'translateX(-50%) scale(1.05)',
+          },
+        }}
+      >
+        <Fab
+          variant="extended"
+          color="primary"
+          onClick={() => navigate('/')}
+          sx={{ boxShadow: 6 }}
+        >
+          <ListIcon sx={{ mr: 1 }} />
+          To the list
+        </Fab>
+      </Box>
+
+      {/* MAIN CONTENT WRAPPER */}
+      <Box
+        width="100%"
+        maxWidth="900px"
+        sx={{
+          px: 2,
+          pt: 4,
+          pb: 12, // 🔥 space for fixed bottom button
+        }}
+      >
         <Box
-          flex={1}
           sx={(theme) => ({
             backgroundColor:
               theme.palette.mode === 'dark' ? '#0d1117' : '#ffffff',
@@ -182,27 +258,7 @@ export default function ProjectDetailPage() {
             </ReactMarkdown>
           </Box>
         </Box>
-
-        {/* Next */}
-        <Box
-          display="flex"
-          alignItems="center"
-          minWidth="60px"
-          justifyContent="flex-end"
-        >
-          {next && (
-            <Button
-              onClick={() => navigate(`/project/${next.id}`)}
-              sx={{ fontSize: 32 }}
-            >
-              ▶
-            </Button>
-          )}
-        </Box>
       </Box>
-
-      {/* Bottom Back */}
-      <Button onClick={() => navigate('/')}>To the list</Button>
     </Box>
   )
 }

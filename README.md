@@ -1,11 +1,18 @@
-## Fortpolio
+---
+name: Port Folio Compiler
+date: 2026-03-03
+tags: [react, vite, typescript, node, githubaction, githubpage]
+summary: Aggregates and serves all owned repo's READMEs
+---
 
 [![Deployment](https://github.com/boolyikes/fortpolio/actions/workflows/sync-readmes-and-deploy.yml/badge.svg)](https://github.com/boolyikes/fortpolio/actions/workflows/sync-readmes-and-deploy.yml)
 
-Personal static portfolio powered by **React + Vite + TypeScript**, deployed via **GitHub Pages**.
+## Fortpolio
 
-Live site:  
-https://boolyikes.github.io/fortpolio/
+Wouldn't it be a less of a hassle for you and me if everything worthy of noting were in one place?
+This is my personal static portfolio aggregator powered by **React + Vite + TypeScript**, deployed via **GitHub Pages**.
+
+Live site: [Link](https://boolyikes.github.io/fortpolio/)
 
 ### ✨ Overview
 
@@ -36,7 +43,8 @@ No backend required.
 
 ### 📂 Project Structure
 
-src/<br>
+root/.syncignore<br>
+root/src/<br>
 ├── app/<br>
 │ ├── layout/<br>
 │ ├── router/<br>
@@ -49,7 +57,7 @@ src/<br>
 ├── pages/<br>
 ├── tests/<br>
 └── types/<br>
-scripts/<br>
+root/scripts/<br>
 ├── generateProjects.mjs<br>
 └── syncReadmes.mjs<br>
 
@@ -81,6 +89,7 @@ If the schema does not match, the repository is ignored.
 
 - `npm run deploy`
 
-### Note
+### Note & Possible Improvements
 
 - Org fetching seems redundant (**user repo fetch** with a token already fetches all user owned repos)
+- Viewed from GitHub, the front matter makes the README look a bit messy. Consider .repometa or something.
