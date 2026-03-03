@@ -20,6 +20,21 @@
     "summary": "Testing deployment"
   },
   {
+    "id": "boolYikes_sealy",
+    "name": "Yet Another Todo App (Sealy)",
+    "date": "2026-03-01T00:00:00.000Z",
+    "tags": [
+      "python",
+      "fastapi",
+      "alembic",
+      "sqlalchemy",
+      "pydantic",
+      "gql",
+      "reactnative"
+    ],
+    "summary": "(WIP) Todo app with FastAPI + React Native"
+  },
+  {
     "id": "classroom-dee_.github",
     "name": "Org Landing",
     "date": "2026-02-01T00:00:00.000Z",
