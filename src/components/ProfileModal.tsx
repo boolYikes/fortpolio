@@ -22,24 +22,21 @@ const githubLinks: GithubLink[] = [
   {
     label: 'Main GitHub',
     url: 'https://github.com/boolYikes',
-    isPrivate: true
+    isPrivate: true,
   },
   {
     label: 'GitHub for learning',
     url: 'https://github.com/classroom-dee',
-    isPrivate: false
+    isPrivate: false,
   },
-//   {
-//     label: 'Work GitHub',
-//     url: 'https://github.com/***',
-//     isPrivate: true,
-//   },
+  //   {
+  //     label: 'Work GitHub',
+  //     url: 'https://github.com/***',
+  //     isPrivate: true,
+  //   },
 ]
 
-export default function ProfileModal({
-  open,
-  onClose,
-}: Props) {
+export default function ProfileModal({ open, onClose }: Props) {
   return (
     <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle>Links</DialogTitle>
@@ -48,20 +45,14 @@ export default function ProfileModal({
         <Box display="flex" flexDirection="column" gap={3}>
           {githubLinks.map((link) => (
             <Box key={link.url}>
-              <Link
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Link href={link.url} target="_blank" rel="noopener noreferrer">
                 {link.label}
               </Link>
 
               {link.isPrivate && (
-                <Typography
-                    variant="body2"
-                    color="warning"
-                >
-                    [Private] For source code viewing, please contact the owner
+                <Typography variant="body2" color="warning">
+                  Some repos are private. For source code viewing, please
+                  contact the owner.
                 </Typography>
               )}
             </Box>

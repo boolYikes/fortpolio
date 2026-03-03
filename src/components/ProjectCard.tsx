@@ -1,11 +1,8 @@
-import {
-  Card,
-  CardContent,
-  Typography,
-  Box,
-  Chip,
-} from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+
+import { Card, CardContent, Typography, Box, Chip } from '@mui/material'
+
+import { formatTimestamp } from '../content/helpers'
 import type { ProjectMeta } from '../types/project'
 
 interface Props {
@@ -24,16 +21,14 @@ export default function ProjectCard({ project }: Props) {
           boxShadow: 6,
         },
       }}
-      onClick={() =>
-        navigate(`/project/${project.id}`)
-      }
+      onClick={() => navigate(`/project/${project.id}`)}
     >
       <CardContent>
         {/* Title */}
         <Typography variant="h6" gutterBottom>
           {project.name}
         </Typography>
-        
+
         {/* Body */}
         <Box
           display="flex"
@@ -51,11 +46,11 @@ export default function ProjectCard({ project }: Props) {
                 textOverflow: 'ellipsis',
                 display: '-webkit-flex',
                 WebkitLineClamp: 2,
-                WebkitBoxOrient: 'vertical'
+                WebkitBoxOrient: 'vertical',
               }}
               // noWrap
             >
-              [{project.date}] {project.summary}
+              [{formatTimestamp(project.date)}] {project.summary}
             </Typography>
           </Box>
 
@@ -63,18 +58,14 @@ export default function ProjectCard({ project }: Props) {
           <Box
             display="flex"
             gap={1}
-            flexWrap='nowrap'
+            flexWrap="nowrap"
             sx={{
               overflow: 'hidden',
               maxWidth: '40%',
             }}
           >
             {project.tags.map((tag) => (
-              <Chip
-                key={tag}
-                label={tag}
-                size="small"
-              />
+              <Chip key={tag} label={tag} size="small" />
             ))}
           </Box>
         </Box>

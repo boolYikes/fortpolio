@@ -2,6 +2,10 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
+/*
+Constants
+*/
+
 const GH_TOKEN = process.env.GH_TOKEN
 const ORGS = (process.env.ORGS || '')
   .split(',')
@@ -24,6 +28,44 @@ if (!GH_TOKEN) {
 
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true })
+}
+
+/*
+Functions
+*/
+
+function extractImagePaths(markdown) {
+  const regex = /!\[[^\]]*]\(([^)]+)\)/g
+  const matches = []
+  let match
+
+  while ((match = regex.exec(markdown)) !== null) {
+    const url = match[1]
+    // ignore absolute URLs
+    if (!url.startsWith('http')) {
+      matches.push(url)
+    }
+  }
+
+  return matches
+}
+
+async function ghFetchFile(owner, repo, filePath, ref) {
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${encodeURIComponent(ref)}`
+  const res = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${GH_TOKEN}`,
+      Accept: 'application/vnd.github.raw',
+      'X-GitHub-Api-Version': '2022-11-28',
+    },
+  })
+
+  if (!res.ok) {
+    console.log(`Failed to fetch image ${filePath}`)
+    return null
+  }
+
+  return res.arrayBuffer()
 }
 
 async function ghFetch(url) {
@@ -129,19 +171,13 @@ async function main() {
     const owner = repo.owner?.login
     const name = repo.name
     const defaultBranch = repo.default_branch
-    console.log('-------------------------------------------------')
-    console.log(`Processing repo ${owner}/${name}`)
 
     if (!owner || !name || !defaultBranch) {
-      console.log('No owner/name/branch provided. Passing')
-      console.log('-------------------------------------------------')
       continue
     }
 
     const raw = await ghFetchRawReadme(owner, name, defaultBranch)
     if (!raw) {
-      console.log('No readme found. Passing')
-      console.log('-------------------------------------------------')
       continue
     }
 
@@ -150,14 +186,11 @@ async function main() {
     try {
       parsed = matter(raw)
     } catch (e) {
-      console(`Error occurred during MD parsing: ${e}`)
-      console.log('-------------------------------------------------')
+      console.log(`Error occurred during MD parsing: ${e}`)
       continue
     }
 
     if (!isFrontmatterValid(parsed.data)) {
-      console.log('Invalid front matter or no front matter found. Passing')
-      console.log('-------------------------------------------------')
       continue
     }
 
@@ -165,7 +198,35 @@ async function main() {
 
     const fileName = `${owner}_${name}.md`
     const outPath = path.join(OUTPUT_DIR, fileName)
-    const nextContent = normalizeReadme(raw)
+    let nextContent = raw
+    const imagePaths = extractImagePaths(raw)
+
+    if (imagePaths.length > 0) {
+      const repoImageDir = path.join(OUTPUT_DIR, `${owner}_${name}`)
+      if (!fs.existsSync(repoImageDir)) {
+        fs.mkdirSync(repoImageDir, { recursive: true })
+      }
+
+      for (const imgPath of imagePaths) {
+        const cleanPath = imgPath.replace(/^\.\//, '')
+        const fileName = path.basename(cleanPath)
+
+        const buffer = await ghFetchFile(owner, name, cleanPath, defaultBranch)
+
+        if (!buffer) continue
+
+        const localImagePath = path.join(repoImageDir, fileName)
+        fs.writeFileSync(localImagePath, Buffer.from(buffer))
+
+        // rewrite markdown path
+        nextContent = nextContent.replace(
+          imgPath,
+          `./${owner}_${name}/${fileName}`,
+        )
+      }
+    }
+
+    nextContent = normalizeReadme(nextContent)
 
     const prevContent = fs.existsSync(outPath)
       ? fs.readFileSync(outPath, 'utf-8')
@@ -176,8 +237,6 @@ async function main() {
       changed++
       console.log(`${owner}/${name} parsed and updated: ${fileName}`)
     }
-
-    console.log('-------------------------------------------------')
   }
 
   console.log(`Eligible repos: ${eligible}`)

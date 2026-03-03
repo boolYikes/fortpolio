@@ -20,8 +20,9 @@ import rehypeSanitize from 'rehype-sanitize'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
-import { markdownModules } from '../content/markdownRegistry'
+import { markdownModules, imageModules } from '../content/markdownRegistry'
 import { useProjects } from '../app/store/ProjectContext'
+import { rehypeSchema } from '../content/helpers'
 
 import 'github-markdown-css/github-markdown.css'
 
@@ -233,8 +234,33 @@ export default function ProjectDetailPage() {
           <Box className="markdown-body" sx={{ overflowWrap: 'anywhere' }}>
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeRaw, rehypeSanitize]}
+              rehypePlugins={[rehypeRaw, [rehypeSanitize, rehypeSchema]]}
               components={{
+                img: ({
+                  src = '',
+                  alt,
+                  ...props
+                }: React.ImgHTMLAttributes<HTMLImageElement>) => {
+                  if (!src) return null
+                  const match = Object.entries(imageModules).find(([path]) =>
+                    path.endsWith(src),
+                  )
+                  const resolvedSrc = (match?.[1] as string) ?? src
+
+                  return (
+                    <Box
+                      component="img"
+                      src={resolvedSrc}
+                      alt={alt}
+                      sx={{
+                        maxWidth: '100%',
+                        borderRadius: 2,
+                        my: 2,
+                      }}
+                      {...props}
+                    />
+                  )
+                },
                 code({ className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || '')
                   return match ? (
