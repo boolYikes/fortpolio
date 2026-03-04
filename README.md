@@ -92,4 +92,12 @@ If the schema does not match, the repository is ignored.
 ### Note & Possible Improvements
 
 - Org fetching seems redundant (**user repo fetch** with a token already fetches all user owned repos)
-- Viewed from GitHub, the front matter makes the README look a bit messy. Consider .repometa or something.
+- Viewed from GitHub, the front matter makes the README look a bit messy. Consider .repometa or comments <!--y e es -->.
+- like this
+
+```js
+const matter = require('gray-matter')
+
+const cleaned = content.replace(/<!--\s*([\s\S]*?)\s*-->/, '$1')
+const result = matter(cleaned)
+```
