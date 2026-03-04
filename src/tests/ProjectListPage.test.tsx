@@ -2,6 +2,8 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import ProjectListPage from '../pages/ProjectListPage'
 import { ProjectContext } from '../app/store/ProjectContext'
+import { vi } from 'vitest'
+
 import type { ProjectMeta } from '../types/project'
 
 const mockProjects: ProjectMeta[] = [
@@ -30,9 +32,9 @@ function renderWithContext(visibleProjects: ProjectMeta[]) {
           visibleProjects,
           selectedTags: [],
           sortMode: 'date-desc',
-          setTags: jest.fn(),
-          setSortMode: jest.fn(),
-          resetFilter: jest.fn(),
+          setTags: vi.fn(),
+          setSortMode: vi.fn(),
+          resetFilter: vi.fn(),
           loading: false,
           allTags: [],
         }}

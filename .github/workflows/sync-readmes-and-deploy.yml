@@ -52,7 +52,7 @@ jobs:
 
       - name: Run tests
         if: steps.changes.outputs.changed == 'true'
-        run: npm test
+        run: npm run test:run
 
       - name: Regenerate project metadata
         if: steps.changes.outputs.changed == 'true'

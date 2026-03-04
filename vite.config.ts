@@ -1,9 +1,18 @@
-import { defineConfig } from 'vite'
+/// <reference types="vitest" />
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
+  test: {
+    env: {
+      PROJ_JSON_PATH: '../content/generated/projects.json',
+    },
+    environment: 'jsdom',
+    setupFiles: './src/tests/setupTests.ts',
+    globals: true,
+  },
   base: '/fortpolio/',
   resolve: {
     alias: {
