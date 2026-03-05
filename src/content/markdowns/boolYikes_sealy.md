@@ -1,11 +1,19 @@
 ---
 name: Yet Another Todo App (Sealy)
-date: 2026-03-01
+date: 2026-03-04
 tags: [python, fastapi, alembic, sqlalchemy, pydantic, gql, reactnative]
 summary: (WIP) Todo app with FastAPI + React Native
 ---
 
 ![Sealy CI](https://github.com/boolYikes/sealy/actions/workflows/main.yaml/badge.svg?branch=main)
+
+## Yet Another Todo App
+
+We don't want anything slipping through the cracks!
+Through meticulousness, you gain clarity.
+Through clarity, you gain productivity,
+Through productivity, you gain ...bullet points,
+Through bullet points, you get a job!
 
 ## Infra
 - FastAPI
@@ -21,7 +29,7 @@ summary: (WIP) Todo app with FastAPI + React Native
 
 ## DB Design
 
-![ERD](./todos_erd_v5.svg)
+![ERD](./boolYikes_sealy/todos_erd_v5.svg)
 
 1. Schema design
    - correct pk
