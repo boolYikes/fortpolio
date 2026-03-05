@@ -117,6 +117,16 @@ function isFrontmatterValid(data) {
   )
 }
 
+function stripFrontmatterComment(raw) {
+  const regex = /^\s*<!--\s*\n?(---[\s\S]*?---)\s*\n?\s*-->/
+
+  const match = raw.match(regex)
+
+  if (!match) return raw
+
+  return raw.replace(match[0], match[1])
+}
+
 function normalizeReadme(raw) {
   // Keep as-is; ensure it ends with newline for stable diffs.
   return raw.endsWith('\n') ? raw : raw + '\n'
@@ -185,10 +195,12 @@ async function main() {
       continue
     }
 
+    const cleaned = stripFrontmatterComment(raw)
+
     // Validate frontmatter schema using gray-matter
     let parsed
     try {
-      parsed = matter(raw)
+      parsed = matter(cleaned)
     } catch (e) {
       console.log(`Error occurred during MD parsing: ${e}`)
       continue
@@ -202,8 +214,8 @@ async function main() {
 
     const fileName = `${owner}_${name}.md`
     const outPath = path.join(OUTPUT_DIR, fileName)
-    let nextContent = raw
-    const imagePaths = extractImagePaths(raw)
+    let nextContent = cleaned
+    const imagePaths = extractImagePaths(cleaned)
 
     if (imagePaths.length > 0) {
       const repoImageDir = path.join(PUBLIC_IMG_DIR, `${owner}_${name}`)

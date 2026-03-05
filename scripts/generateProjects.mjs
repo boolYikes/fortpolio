@@ -21,7 +21,7 @@ const files = fs.readdirSync(markdownDir).filter((f) => f.endsWith('.md'))
 
 const projects = []
 
-// NOTE: used in sync script too
+// Note: dupe in sync script
 function isFrontmatterValid(data) {
   return (
     typeof data?.name === 'string' &&
@@ -34,18 +34,29 @@ function isFrontmatterValid(data) {
   )
 }
 
+// Note: dupe in sync script
+function stripFrontmatterComment(raw) {
+  const regex = /^\s*<!--\s*\n?(---[\s\S]*?---)\s*\n?\s*-->/
+
+  const match = raw.match(regex)
+
+  if (!match) return raw
+
+  // replace the comment block with the frontmatter itself
+  return raw.replace(match[0], match[1])
+}
+
 for (const file of files) {
   const fullPath = path.join(markdownDir, file)
   const raw = fs.readFileSync(fullPath, 'utf-8')
-
-  const { data } = matter(raw)
+  const cleaned = stripFrontmatterComment(raw)
+  const { data } = matter(cleaned)
 
   // schema check
   if (!isFrontmatterValid(data)) {
     console.log(`Skipping ${file} — invalid frontmatter`)
     continue
   }
-
 
   projects.push({
     id: file.replace('.md', ''),
