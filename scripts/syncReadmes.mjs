@@ -20,6 +20,7 @@ const EXCLUSIONS = fs
   .filter(Boolean)
 
 const OUTPUT_DIR = path.resolve('src/content/markdowns')
+const PUBLIC_IMG_DIR = path.resolve('public/md-images')
 
 if (!GH_TOKEN) {
   console.error('Missing GH_TOKEN env var (PAT).')
@@ -28,6 +29,9 @@ if (!GH_TOKEN) {
 
 if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true })
+}
+if (!fs.existsSync(PUBLIC_IMG_DIR)) {
+  fs.mkdirSync(PUBLIC_IMG_DIR, { recursive: true })
 }
 
 /*
@@ -202,26 +206,26 @@ async function main() {
     const imagePaths = extractImagePaths(raw)
 
     if (imagePaths.length > 0) {
-      const repoImageDir = path.join(OUTPUT_DIR, `${owner}_${name}`)
+      const repoImageDir = path.join(PUBLIC_IMG_DIR, `${owner}_${name}`)
       if (!fs.existsSync(repoImageDir)) {
         fs.mkdirSync(repoImageDir, { recursive: true })
       }
 
       for (const imgPath of imagePaths) {
         const cleanPath = imgPath.replace(/^\.\//, '')
-        const fileName = path.basename(cleanPath)
+        const imgFileName = path.basename(cleanPath)
 
         const buffer = await ghFetchFile(owner, name, cleanPath, defaultBranch)
 
         if (!buffer) continue
 
-        const localImagePath = path.join(repoImageDir, fileName)
+        const localImagePath = path.join(repoImageDir, imgFileName)
         fs.writeFileSync(localImagePath, Buffer.from(buffer))
 
         // rewrite markdown path
-        nextContent = nextContent.replace(
+        nextContent = nextContent.replaceAll(
           imgPath,
-          `./${owner}_${name}/${fileName}`,
+          `/md-images/${owner}_${name}/${imgFileName}`,
         )
       }
     }

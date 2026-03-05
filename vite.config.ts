@@ -21,4 +21,14 @@ export default defineConfig({
       '@components': path.resolve(__dirname, 'src/components'),
     },
   },
+  // removes hash from build artifacts
+  // build: {
+  //   rollupOptions: {
+  //     output: {
+  //       entryFileNames: `assets/[name].js`,
+  //       chunkFileNames: `assets/[name].js`,
+  //       assetFileNames: `assets/[name][extname]`,
+  //     },
+  //   },
+  // },
 })
