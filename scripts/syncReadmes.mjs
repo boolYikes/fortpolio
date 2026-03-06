@@ -237,7 +237,7 @@ async function main() {
         // rewrite markdown path
         nextContent = nextContent.replaceAll(
           imgPath,
-          `/md-images/${owner}_${name}/${imgFileName}`,
+          `../md-images/${owner}_${name}/${imgFileName}`,
         )
       }
     }
