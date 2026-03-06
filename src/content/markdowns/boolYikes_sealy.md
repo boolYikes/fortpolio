@@ -9,27 +9,15 @@ summary: (WIP) Todo app with FastAPI + React Native
 
 ## Yet Another Todo App
 
-We don't want anything slipping through the cracks!
-Through meticulousness, you gain clarity.
-Through clarity, you gain productivity,
-Through productivity, you gain ...bullet points,
-Through bullet points, you get a job!
-
-## Infra
-- FastAPI
-### API Hosting
-- Google Cloud Run: scales to zero on idle, cheap, handle quite a lot of reqs
-- Google Compute Engine
-- Cloudflare
-### DB Hostings
-- Run it on the same VM as API (warning, hands-on)
-- Or use managed (expensive)
-### Logging and Metrics
-- Measure queries per endpoints
+We don't want anything slipping through the cracks!<br>
+Through meticulousness, you gain clarity.<br>
+Through clarity, you gain productivity,<br>
+Through productivity, you gain ...bullet points,<br>
+Through bullet points, you get a job!<br>
 
 ## DB Design
 
-![ERD](./boolYikes_sealy/todos_erd_v5.svg)
+![ERD](/md-images/boolYikes_sealy/todos_erd_v5.svg)
 
 1. Schema design
    - correct pk

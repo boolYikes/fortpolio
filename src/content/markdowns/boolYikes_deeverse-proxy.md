@@ -43,8 +43,8 @@ docker run --rm -it \
 - [Jenkins with Nginx](https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-with-jenkins/reverse-proxy-configuration-nginx/)
 - [RP Troubleshooting](https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-troubleshooting/)
 
-![alt text](./boolYikes_deeverse-proxy/image.png)
+![alt text](/md-images/boolYikes_deeverse-proxy/image.png)
 
-![alt text](./boolYikes_deeverse-proxy/image-1.png)
+![alt text](/md-images/boolYikes_deeverse-proxy/image-1.png)
 
 *Finally...*
