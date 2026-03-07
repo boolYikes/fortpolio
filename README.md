@@ -1,9 +1,11 @@
+<!--
 ---
 name: Port Folio Compiler
 date: 2026-03-03
 tags: [react, vite, typescript, node, githubaction, githubpage]
 summary: Aggregates and serves all owned repo's READMEs
 ---
+-->
 
 [![Deployment](https://github.com/boolyikes/fortpolio/actions/workflows/sync-readmes-and-deploy.yml/badge.svg)](https://github.com/boolyikes/fortpolio/actions/workflows/sync-readmes-and-deploy.yml)
 
