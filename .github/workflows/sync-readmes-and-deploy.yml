@@ -1,0 +1,81 @@
+name: Deployment
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # every 24 hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-readmes-and-deploy
+  cancel-in-progress: false
+
+jobs:
+  sync-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Sync READMEs into markdowns folder
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+          ORGS: ${{ secrets.ORGS }} # comma-separated orgs
+          PF_REPO: ${{ github.event.repository.name }}
+        run: node scripts/syncReadmes.mjs
+
+      - name: Detect changes
+        id: changes
+        run: |
+          status="$(git status --porcelain)"
+
+          echo "$status"
+
+          if [ -n "$status" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run tests
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run test:run
+
+      - name: Regenerate project metadata
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run generate
+
+      - name: Commit changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/markdowns src/content/generated/projects.json
+          git commit -m "chore: sync portfolio markdowns" || exit 0
+
+      - name: Push changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git push
+
+      - name: Deploy to GitHub Pages (gh-pages)
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Builds and deploys to Pages
+        # ${} expansion works in ubuntu inside package.json, supposedly...
+        run: npm run deploy -- -r "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
