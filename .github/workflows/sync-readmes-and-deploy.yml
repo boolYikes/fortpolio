@@ -35,7 +35,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
           ORGS: ${{ secrets.ORGS }} # comma-separated orgs
-          PF_REPO: ${{ github.even.repository.name }}
+          PF_REPO: ${{ github.event.repository.name }}
         run: node scripts/syncReadmes.mjs
 
       - name: Detect changes
