@@ -6,6 +6,7 @@ import matter from 'gray-matter'
 Constants
 */
 
+const PF_REPO = process.env.PF_REPO
 const GH_TOKEN = process.env.GH_TOKEN
 const ORGS = (process.env.ORGS || '')
   .split(',')
@@ -237,7 +238,7 @@ async function main() {
         // rewrite markdown path
         nextContent = nextContent.replaceAll(
           imgPath,
-          `/md-images/${owner}_${name}/${imgFileName}`,
+          `/${PF_REPO}/md-images/${owner}_${name}/${imgFileName}`,
         )
       }
     }
