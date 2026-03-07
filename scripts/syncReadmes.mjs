@@ -46,7 +46,7 @@ function extractImagePaths(markdown) {
   while ((match = regex.exec(markdown)) !== null) {
     const url = match[1]
     // ignore absolute URLs
-    if (!url.startsWith('http')) {
+    if (!url.startsWith('http') && !url.startsWith('/')) {
       matches.push(url)
     }
   }
@@ -237,7 +237,7 @@ async function main() {
         // rewrite markdown path
         nextContent = nextContent.replaceAll(
           imgPath,
-          `../md-images/${owner}_${name}/${imgFileName}`,
+          `/md-images/${owner}_${name}/${imgFileName}`,
         )
       }
     }
