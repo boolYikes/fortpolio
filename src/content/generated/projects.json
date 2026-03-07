@@ -1,1 +1,99 @@
-[]
+[
+  {
+    "id": "boolYikes_deeverse-proxy",
+    "name": "Dee-verse Proxy",
+    "date": "2025-06-01T00:00:00.000Z",
+    "tags": [
+      "nginx",
+      "certbot",
+      "docker"
+    ],
+    "summary": "Nginx L7 proxy for home server"
+  },
+  {
+    "id": "boolYikes_dyrmgraph",
+    "name": "Dyrmgraph",
+    "date": "2026-03-04T00:00:00.000Z",
+    "tags": [
+      "python",
+      "langchain",
+      "langgraph",
+      "postgres",
+      "pgvector",
+      "age",
+      "spark",
+      "airflow"
+    ],
+    "summary": "Information validation workflow"
+  },
+  {
+    "id": "boolYikes_fortpolio",
+    "name": "Port Folio Compiler",
+    "date": "2026-03-03T00:00:00.000Z",
+    "tags": [
+      "react",
+      "vite",
+      "typescript",
+      "node",
+      "githubaction",
+      "githubpage"
+    ],
+    "summary": "Aggregates and serves all owned repo's READMEs"
+  },
+  {
+    "id": "boolYikes_sealy",
+    "name": "Yet Another Todo App (Sealy)",
+    "date": "2026-03-04T00:00:00.000Z",
+    "tags": [
+      "python",
+      "fastapi",
+      "alembic",
+      "sqlalchemy",
+      "pydantic",
+      "gql",
+      "reactnative"
+    ],
+    "summary": "(WIP) Todo app with FastAPI + React Native"
+  },
+  {
+    "id": "classroom-dee_.github",
+    "name": "Org Landing",
+    "date": "2026-02-01T00:00:00.000Z",
+    "tags": [
+      "kubernetes",
+      "gke",
+      "argocd",
+      "githubaction",
+      "docker",
+      "python",
+      "java",
+      "spring",
+      "spark",
+      "aws",
+      "dbt",
+      "airflow",
+      "rust",
+      "node",
+      "react",
+      "reactnative",
+      "gql",
+      "typescript"
+    ],
+    "summary": "An org for organizing study material and old projects"
+  },
+  {
+    "id": "classroom-dee_miniapps",
+    "name": "Mini Apps Collection",
+    "date": "2026-03-01T00:00:00.000Z",
+    "tags": [
+      "githubaction",
+      "docker",
+      "python",
+      "node",
+      "react",
+      "typescript",
+      "cloudflare"
+    ],
+    "summary": "A collection of small projects and PoCs"
+  }
+]
