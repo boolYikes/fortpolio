@@ -57,7 +57,7 @@
   },
   {
     "id": "classroom-dee_.github",
-    "name": "Org Landing",
+    "name": "A Collection of Learning Repos",
     "date": "2026-02-01T00:00:00.000Z",
     "tags": [
       "kubernetes",
@@ -80,6 +80,21 @@
       "typescript"
     ],
     "summary": "An org for organizing study material and old projects"
+  },
+  {
+    "id": "classroom-dee_experiments",
+    "name": "Experiments",
+    "date": "2026-02-20T00:00:00.000Z",
+    "tags": [
+      "python",
+      "postgresql",
+      "grafana",
+      "prometheus",
+      "neo4j",
+      "pytorch",
+      "docker"
+    ],
+    "summary": "A collection of PoCs, experiments, scribbles, snippets and the unfinished"
   },
   {
     "id": "classroom-dee_miniapps",
