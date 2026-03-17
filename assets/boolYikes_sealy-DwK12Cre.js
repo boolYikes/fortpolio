@@ -1,6 +1,6 @@
-const n=`---\r
+const e=`---\r
 name: Yet Another Todo App (Sealy)\r
-date: 2026-03-04\r
+date: 2026-03-17\r
 tags: [python, fastapi, alembic, sqlalchemy, pydantic, gql, reactnative]\r
 summary: (WIP) Todo app with FastAPI + React Native\r
 ---\r
@@ -8,11 +8,12 @@ summary: (WIP) Todo app with FastAPI + React Native\r
 \r
 # Yet Another Todo App\r
 ![Sealy CI](https://github.com/boolYikes/sealy/actions/workflows/main.yaml/badge.svg?branch=main)\r
+![Coverage](https://codecov.io/gh/boolYikes/sealy/branch/main/graph/badge.svg)\r
 \r
 A backend-focused todo management system built to explore **reliable database design**, **migration safety**, and **Change Data Capture (CDC) pipelines**.\r
 \r
 The project uses a mobile client (React Native) and a Python backend with PostgreSQL.  \r
-The primary goal of this repository is to study **data consistency, migration safety, and event-driven CDC pipelines** built on top of a well-tested relational model.\r
+Implementing **data consistency, migration safety, and event-driven CDC pipelines** on top of a well-tested relational model is the primary goal of this project.\r
 \r
 ## Overview\r
 This project implements a backend architecture with a strong emphasis on:\r
@@ -157,11 +158,8 @@ Test coverage includes(So far):\r
   - **Monitoring hooks**\r
   - **Realistic data volumes**\r
   - **API versioning**\r
-- We don't want anything slipping through the cracks!\r
-  - Through meticulousness, you gain clarity,\r
-  - Through clarity, you gain productivity,\r
-  - Through productivity, you gain ...bullet points,\r
-  - Through bullet points, you get a job!\r
+- Diary?\r
+  - ORM tries to null FK before deleting a related row when using \`session.delete()\` -> use \`passive_deletes="all"\` in relationships of parent collections to disable this behavior\r
 \r
 </details>\r
 \r
@@ -177,4 +175,4 @@ Test coverage includes(So far):\r
 - Make notes for future revision, clean up revision, re-init on prod\r
 \r
 </details>\r
-`;export{n as default};
+`;export{e as default};
