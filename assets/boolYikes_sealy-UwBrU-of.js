@@ -1,6 +1,6 @@
 const e=`---\r
 name: Yet Another Todo App (Sealy)\r
-date: 2026-03-17\r
+date: 2026-03-19\r
 tags: [python, fastapi, alembic, sqlalchemy, pydantic, gql, reactnative]\r
 summary: (WIP) Todo app with FastAPI + React Native\r
 ---\r
@@ -8,7 +8,7 @@ summary: (WIP) Todo app with FastAPI + React Native\r
 \r
 # Yet Another Todo App\r
 ![Sealy CI](https://github.com/boolYikes/sealy/actions/workflows/main.yaml/badge.svg?branch=main)\r
-![Coverage](https://codecov.io/gh/boolYikes/sealy/branch/main/graph/badge.svg)\r
+[![Coverage](https://codecov.io/github/boolYikes/sealy/graph/badge.svg)](https://app.codecov.io/github/boolYikes/sealy)\r
 \r
 A backend-focused todo management system built to explore **reliable database design**, **migration safety**, and **Change Data Capture (CDC) pipelines**.\r
 \r
@@ -105,8 +105,8 @@ This milestone focuses on building a **reliable database layer**.\r
 - [x] Test environment setup\r
 - [x] ORM models tests\r
 - [x] Migration tests\r
-- [ ] Repository/queries tests\r
-- [ ] Transaction handling tests\r
+- [x] Repository/queries tests\r
+- [x] Transaction handling tests\r
 \r
 Test coverage includes(So far):\r
 \r
