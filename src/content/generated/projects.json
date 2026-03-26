@@ -80,9 +80,38 @@
       "react",
       "reactnative",
       "gql",
-      "typescript"
+      "typescript",
+      "django"
     ],
     "summary": "An org for organizing study material and old projects"
+  },
+  {
+    "id": "classroom-dee_JobInsightVisualizer",
+    "name": "Job Trend Visualizer",
+    "date": "2024-09-30T00:00:00.000Z",
+    "tags": [
+      "python",
+      "django",
+      "redshift",
+      "sql"
+    ],
+    "summary": "Analyzes job market data to extract structured insights on hiring trends, role distributions, and required skill sets."
+  },
+  {
+    "id": "classroom-dee_catch-me-my-capital",
+    "name": "Catch Me My Capital",
+    "date": "2025-03-31T00:00:00.000Z",
+    "tags": [
+      "python",
+      "airflow",
+      "aws",
+      "spark",
+      "dbt",
+      "terraform",
+      "githubactions",
+      "docker"
+    ],
+    "summary": "A financial data pipeline and backtesting platform designed to support rational investment decision-making."
   },
   {
     "id": "classroom-dee_experiments",
