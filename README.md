@@ -23,6 +23,7 @@ This portfolio is fully static and automatically synchronized with selected GitH
 Every 24 hours:
 
 - GitHub Actions polls all owned repositories (including private + specified orgs)
+- Repositories in the .syncignore manifest are ignored
 - Repositories with valid README frontmatter are collected
 - README files are copied into `src/content/markdowns/`
 - Metadata is generated at build time
