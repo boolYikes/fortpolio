@@ -1,5 +1,17 @@
 [
   {
+    "id": "boolYikes_aria-CMB-model",
+    "name": "Aria CMB Model",
+    "date": "2024-02-01T00:00:00.000Z",
+    "tags": [
+      "python",
+      "pytorch",
+      "docker",
+      "cuda"
+    ],
+    "summary": "Dementia risk assessment neural model"
+  },
+  {
     "id": "boolYikes_city-pulse",
     "name": "City Pulse",
     "date": "2026-04-04T00:00:00.000Z",
@@ -96,6 +108,19 @@
     "summary": "An org for organizing study material and old projects"
   },
   {
+    "id": "classroom-dee_DoubleShot",
+    "name": "Double Shot",
+    "date": "2025-08-01T00:00:00.000Z",
+    "tags": [
+      "python",
+      "java",
+      "mysql",
+      "sql",
+      "opencv"
+    ],
+    "summary": "Ordering kiosk app for the disadvantaged"
+  },
+  {
     "id": "classroom-dee_JobInsightVisualizer",
     "name": "Job Trend Visualizer",
     "date": "2024-09-30T00:00:00.000Z",
@@ -152,5 +177,18 @@
       "cloudflare"
     ],
     "summary": "A collection of small projects and PoCs"
+  },
+  {
+    "id": "classroom-dee_withtayo",
+    "name": "With Tayo",
+    "date": "2023-05-04T00:00:00.000Z",
+    "tags": [
+      "java",
+      "spring",
+      "sql",
+      "mysql",
+      "servlet"
+    ],
+    "summary": "Public transit reservation app for the disadvantaged"
   }
 ]
