@@ -1,6 +1,6 @@
 ---
 name: City Pulse
-date: 2026-04-04
+date: 2026-04-10
 tags: [python, aws]
 summary: City info aggregator
 ---
@@ -49,7 +49,69 @@ Pipeline flow:
 - EC2 for hosting a lightweight web application for data visualization
 
 ## Data Modeling
-![ERD](/fortpolio/md-images/boolYikes_city-pulse/#insert_image_path)
+
+### Data Contract
+
+**Forecast - semi-structured**
+
+- This dataset is optimized for retrieval, not analytics (JSON storage is intentional)
+- Forecasts should always reflect the latest available data
+- This table is used for caching identical requests within a given time window
+- Data is not durable and may be overwritten or expired
+- Historical lookup is best-effort and not guaranteed complete
+- Cache key: city + request_time
+
+```json
+{
+  "city": "string",
+  "state": "string",
+  "sunrise": "datetime (UTC offset)",
+  "sunset":  "datetime (UTC offset)",
+  "timezone": "string (IANA ID)",
+  "updated_at":  "datetime (UTC offset)",
+  "forecast": [
+    {
+      "detailedForecast": "string",
+      "startTime": "datetime (UTC offset)",
+      "endTime": "datetime (UTC offset)",
+      "icon": "string (url)",
+      "isDaytime": "boolean",
+      "name": "string",
+      "number": "integer",
+      "probabilityOfPrecipitation": {
+          "unitCode": "string (wmoUnit:<code>)",
+          "value": "integer"
+      },
+      "shortForecast": "string",
+      "temperature": "integer | float",
+      "temperatureTrend": "optional",
+      "temperatureUnit": "string",
+      "windDirection": "string",
+      "windSpeed": "string"
+    }
+  ]
+}
+```
+
+**Air Quality - silver**
+
+- Partitioning is stable, in Parquet format and does not change over time
+
+| column     | role          | partitioned | data type |
+|--------    |---------------|-------------|-----------|
+| city       | dimension     | yes         | string    |
+| date       | dimension     | yes         | datetime  |
+| pollutant  | dimension     | no          | string    |
+| value      | measurement   | no          | float     |
+
+Dimension table: Pollutant, snapshot strategy
+
+| column       | data type |
+| -            | -         |
+| name         | string    |
+| display_name | string    | 
+| interval     | integer   |
+| units        | string    |
 
 ## Architecture
 ```plaintext
@@ -128,7 +190,7 @@ Deployment
 
 <summary>Notes</summary>
 
-- Implemented retry logic to OpenAQ so it covers the cases where some sensors are late on updates, by going back in time with 1 hour step, 
-- But this doesn't solve the fact that AQ lags behind the OpenWeather updates. Sensors might update at different intervals at different times but in any case I need a way to normalize that
+- [x] Implemented retry logic to OpenAQ so it covers the cases where some sensors are late on updates, by going back in time with 1 hour step, 
+- [ ] Use If-None-Match systax in s3 client
 
 </details>
