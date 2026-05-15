@@ -66,6 +66,19 @@
     "summary": "Aggregates and serves all owned repo's READMEs"
   },
   {
+    "id": "boolYikes_radeeo",
+    "name": "Radeeo",
+    "date": "2025-10-01T00:00:00.000Z",
+    "tags": [
+      "python",
+      "clickhouse",
+      "spark",
+      "airflow",
+      "sql"
+    ],
+    "summary": "Radio stream info meta extraction/enrichment workflow"
+  },
+  {
     "id": "boolYikes_sealy",
     "name": "Yet Another Todo App (Sealy)",
     "date": "2026-03-19T00:00:00.000Z",
