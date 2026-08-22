@@ -35,21 +35,17 @@
   {
     "id": "boolYikes_dyrmgraph",
     "name": "Dyrmgraph",
-    "date": "2026-03-25T00:00:00.000Z",
+    "date": "2026-07-16T00:00:00.000Z",
     "tags": [
       "python",
-      "langchain",
-      "langgraph",
+      "elasticsearch",
       "postgres",
-      "pgvector",
-      "age",
       "spark",
-      "java",
       "airflow",
-      "dbt",
+      "minio",
       "sql"
     ],
-    "summary": "Information validation workflow"
+    "summary": "A pipeline for knowledge ingestion, basic search and OSINT backbone"
   },
   {
     "id": "boolYikes_fortpolio",
