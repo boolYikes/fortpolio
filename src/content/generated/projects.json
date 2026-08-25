@@ -35,15 +35,16 @@
   {
     "id": "boolYikes_dyrmgraph",
     "name": "Dyrmgraph",
-    "date": "2026-07-16T00:00:00.000Z",
+    "date": "2026-08-21T00:00:00.000Z",
     "tags": [
       "python",
+      "java",
+      "sql",
       "elasticsearch",
       "postgres",
       "spark",
       "airflow",
-      "minio",
-      "sql"
+      "minio"
     ],
     "summary": "A pipeline for knowledge ingestion, basic search and OSINT backbone"
   },
