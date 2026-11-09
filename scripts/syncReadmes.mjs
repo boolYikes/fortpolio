@@ -90,19 +90,26 @@ async function ghFetch(url) {
 
 async function ghFetchRawReadme(owner, repo, ref) {
   const url = `https://api.github.com/repos/${owner}/${repo}/readme?ref=${encodeURIComponent(ref)}`
-  const res = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${GH_TOKEN}`,
-      Accept: 'application/vnd.github.raw',
-      'X-GitHub-Api-Version': '2022-11-28',
-    },
-  })
-  if (res.status === 404) return null
-  if (!res.ok) {
-    const text = await res.text().catch(() => '')
-    throw new Error(`README fetch ${res.status} for ${owner}/${repo}\n${text}`)
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${GH_TOKEN}`,
+        Accept: 'application/vnd.github.raw',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    })
+
+    if (res.status === 404) return null
+    if (res.ok) return await res.text()
+    if (res.status >= 500 && attempt < 2) {
+      await new Promise((resolve) => setTimeout(resolve, 1000 * 2 ** attempt))
+      continue
+    }
+
+    throw new Error(
+      `README fetch ${res.status} for ${owner}/${repo}\n${await res.text()}`,
+    )
   }
-  return res.text()
 }
 
 function isFrontmatterValid(data) {
